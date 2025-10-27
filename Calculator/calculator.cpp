@@ -79,5 +79,7 @@ int main() {
     C.PrintResult();
     C.Divide(2);
     C.PrintResult();
+    C.Clear();
+    C.PrintResult();
     return 0;
 }
