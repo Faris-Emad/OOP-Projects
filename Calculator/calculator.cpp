@@ -16,10 +16,12 @@ class Calculator {
     private:
         double number = 0;
         int X = 0;
+        string LastOperation;
         int setX(int Number) {
             return X = Number;
         }
         int setClear() {
+            
             return (number = 0, X = 0) ;
         }
         int setAdd(int X) {
@@ -39,25 +41,30 @@ class Calculator {
     public:
         void Clear() {
             setClear();
+            LastOperation = "Clear ";
         }
         void Add(int Number) {
             setX(Number);
             setAdd(Number);
+            LastOperation = "Add ";
         }
         void Subtract(int Number) {
             setX(Number);
             setSubtract(Number);
+            LastOperation = "Subtract ";
         }
         void Multiply(int Number) {
             setX(Number);
             setMultiply(Number);
+            LastOperation = "Multiply ";
         }
         void Divide(int Number) {
             setX(Number);
             setDivide(Number);
+            LastOperation = "Divide ";
         }
         void PrintResult() {
-            cout << "\nResult after  " << X << " is " << number << endl;
+            cout << "\nResult after " << LastOperation << X << " is " << number << endl;
         }
 };
 
