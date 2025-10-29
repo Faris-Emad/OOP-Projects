@@ -1,15 +1,9 @@
+/**
+ * @file calculator.cpp
+ * Simple calculator with basic arithmetic, clear, undo, and print helpers.
+ */
 #include <iostream>
 using namespace std;
-
-/**
- * Calculator operations:
- *  - Add:           add two numbers
- *  - Subtract:      subtract two numbers
- *  - Multiply:      multiply two numbers
- *  - Divide:        divide two numbers (handle divide-by-zero)
- *  - Clear:         reset current value to zero
- *  - PrintResult:   print the current result to stdout
- */
 
 class Calculator {
     private:
