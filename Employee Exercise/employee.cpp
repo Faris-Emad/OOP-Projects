@@ -46,7 +46,8 @@ class Employee {
         string _Department;
         float _Salary;
     public:
-        Employee(string ID,string FirstName, string LastName, string Email, string Phone,string Title, string Department, float Salary) {
+    Employee(string ID, string FirstName, string LastName, string Title,
+         string Email, string Phone, float Salary, string Department) {
             _ID = ID;
             _FirstName = FirstName;
             _LastName = LastName;
@@ -101,7 +102,7 @@ class Employee {
         string Department() {
             return  _Department;
         }
-        int Salary() {
+        float Salary() {
             return _Salary;
         }
 
@@ -113,8 +114,11 @@ class Employee {
             cout << "First Name : " << _FirstName << endl; 
             cout << "Last Name  : " << _LastName << endl; 
             cout << "Full Name  : " << FullName() << endl; 
+            cout << "Title      : " << _Title << endl;
             cout << "Email      : " << _Email << endl; 
-            cout << "Phone      :" << _Phone << endl; 
+            cout << "Phone      : " << _Phone << endl; 
+            cout << "Salary     : " << _Salary << endl;
+            cout << "Department : " << _Department << endl;
         }
 
         void SendEmail(string Subject, string Body) {
@@ -138,7 +142,27 @@ class Employee {
 };
 
 int main() {
-
+    Employee emp1("E001", "Faris", "Emad", "Software Engineer",
+                  "faris.emad@company.com", "+20-123-456-7890", 50000.0, "IT");
+    
+    // Display employee information
+    emp1.PrintInfo();
+    
+    // Send email notification
+    emp1.SendEmail("Welcome to the Team", "Dear " + emp1.FirstName() + ", Welcome aboard!");
+    
+    // Send SMS notification
+    emp1.SendSMS("Your first day is tomorrow at 9 AM");
+    
+    // Test setters
+    cout << "\n==================================================\n";
+    cout << "         Testing Setters\n";
+    cout << "==================================================\n";
+    emp1.SetSalary(55000.0);
+    emp1.SetTitle("Senior Software Engineer");
+    
+    cout << "Updated Salary: " << emp1.Salary() << endl;
+    cout << "Updated Title: " << emp1.Title() << endl;
 
     return 0;
 }
