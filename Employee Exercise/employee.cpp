@@ -42,13 +42,19 @@ class Employee {
         string _LastName;
         string _Email;
         string _Phone;
+        string _Title;
+        string _Department;
+        float _Salary;
     public:
-        Employee(string ID,string FirstName, string LastName, string Email, string Phone) {
+        Employee(string ID,string FirstName, string LastName, string Email, string Phone,string Title, string Department, float Salary) {
             _ID = ID;
             _FirstName = FirstName;
             _LastName = LastName;
             _Email = Email;
             _Phone = Phone;
+            _Title = Title;
+            _Department = Department;
+            _Salary = Salary;
         }
         string GetID() {
             return _ID;
@@ -65,6 +71,15 @@ class Employee {
         void SetPhone(string Phone) {
             _Phone = Phone;
         }
+        void SetTitle(string Title) {
+            _Title = Title;
+        }
+        void SetDepartment(string Department) {
+            _Department = Department;
+        }
+        void SetSalary(float Salary) {
+            _Salary = Salary;
+        }
         string FirstName() {
             return _FirstName;
         }
@@ -79,6 +94,15 @@ class Employee {
         }
         string Phone() {
             return _Phone;
+        }
+        string Title(){
+            return _Title;
+        }
+        string Department() {
+            return  _Department;
+        }
+        int Salary() {
+            return _Salary;
         }
 
         void PrintInfo() {
