@@ -35,29 +35,24 @@
 #include <iostream>
 using namespace std;
 
-class Employee {
+
+
+class Person {
     private:
         string _ID;
         string _FirstName; 
         string _LastName;
         string _Email;
         string _Phone;
-        string _Title;
-        string _Department;
-        float _Salary;
     public:
-    Employee(string ID, string FirstName, string LastName, string Title,
-         string Email, string Phone, float Salary, string Department) {
+        Person(string ID,string FirstName, string LastName, string Email, string Phone) {
             _ID = ID;
             _FirstName = FirstName;
             _LastName = LastName;
             _Email = Email;
             _Phone = Phone;
-            _Title = Title;
-            _Department = Department;
-            _Salary = Salary;
         }
-        string GetID() {
+        string ID() {
             return _ID;
         }
         void SetFirstName(string FirstName) {
@@ -71,15 +66,6 @@ class Employee {
         }
         void SetPhone(string Phone) {
             _Phone = Phone;
-        }
-        void SetTitle(string Title) {
-            _Title = Title;
-        }
-        void SetDepartment(string Department) {
-            _Department = Department;
-        }
-        void SetSalary(float Salary) {
-            _Salary = Salary;
         }
         string FirstName() {
             return _FirstName;
@@ -96,29 +82,17 @@ class Employee {
         string Phone() {
             return _Phone;
         }
-        string Title(){
-            return _Title;
-        }
-        string Department() {
-            return  _Department;
-        }
-        float Salary() {
-            return _Salary;
-        }
 
         void PrintInfo() {
             cout << "==================================================\n";
-            cout << "              Employee Information\n";
+            cout << "              Person Information\n";
             cout << "==================================================\n";
             cout << "ID         : " << _ID << endl;
             cout << "First Name : " << _FirstName << endl; 
             cout << "Last Name  : " << _LastName << endl; 
             cout << "Full Name  : " << FullName() << endl; 
-            cout << "Title      : " << _Title << endl;
             cout << "Email      : " << _Email << endl; 
-            cout << "Phone      : " << _Phone << endl; 
-            cout << "Salary     : " << _Salary << endl;
-            cout << "Department : " << _Department << endl;
+            cout << "Phone      :" << _Phone << endl; 
         }
 
         void SendEmail(string Subject, string Body) {
@@ -141,12 +115,60 @@ class Employee {
     
 };
 
+class Employee : public Person {
+    private:
+        string _Title;
+        string _Department;
+        float _Salary;
+    public:
+    Employee(string ID, string FirstName, string LastName, string Title,
+         string Email, string Phone, float Salary, string Department) :  Person( ID, FirstName,  LastName,  Email,  Phone) {
+            _Title = Title;
+            _Department = Department;
+            _Salary = Salary;
+        }
+        void SetTitle(string Title) {
+            _Title = Title;
+        }
+        void SetDepartment(string Department) {
+            _Department = Department;
+        }
+        void SetSalary(float Salary) {
+            _Salary = Salary;
+        }
+        string Title(){
+            return _Title;
+        }
+        string Department() {
+            return  _Department;
+        }
+        float Salary() {
+            return _Salary;
+        }
+        void PrintInfo() {
+            cout << "==================================================\n";
+            cout << "              Employee Information\n";
+            cout << "==================================================\n";
+            cout << "ID         : " << ID() << endl;
+            cout << "First Name : " << FirstName() << endl; 
+            cout << "Last Name  : " << LastName() << endl; 
+            cout << "Full Name  : " << FullName() << endl; 
+            cout << "Title      : " << _Title << endl;
+            cout << "Email      : " << Email() << endl; 
+            cout << "Phone      : " << Phone() << endl; 
+            cout << "Salary     : " << _Salary << endl;
+            cout << "Department : " << _Department << endl;
+        }
+    
+};
+
 int main() {
     Employee emp1("E001", "Faris", "Emad", "Software Engineer",
                   "faris.emad@company.com", "+20-123-456-7890", 50000.0, "IT");
     
     // Display employee information
     emp1.PrintInfo();
+
     
     // Send email notification
     emp1.SendEmail("Welcome to the Team", "Dear " + emp1.FirstName() + ", Welcome aboard!");
