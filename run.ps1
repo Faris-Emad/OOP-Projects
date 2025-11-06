@@ -1,7 +1,18 @@
 param(
     [Parameter(Mandatory=$false)]
-    [string]$SourceFile = "main.cpp"
+    [string]$SourceFile
 )
+
+# If no source file provided, ask for it
+if ([string]::IsNullOrWhiteSpace($SourceFile)) {
+    $SourceFile = Read-Host "Enter the source file name (e.g., main.cpp)"
+    
+    # If still empty, use default
+    if ([string]::IsNullOrWhiteSpace($SourceFile)) {
+        $SourceFile = "main.cpp"
+        Write-Host "No file specified, using default: $SourceFile" -ForegroundColor Yellow
+    }
+}
 
 # Check if source file exists
 if (-not (Test-Path $SourceFile)) {
