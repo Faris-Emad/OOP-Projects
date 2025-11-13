@@ -9,12 +9,10 @@ using namespace std;
 class clsString {
     private:
         string _Value;
-        char _Letter;
     public:
 
         clsString() {
             _Value = "";
-            _Letter = ' ';
         }
         clsString(string Value) {
             _Value = Value;
@@ -24,12 +22,6 @@ class clsString {
         }
         string GetValue() {
             return _Value;
-        }
-        void SetLetter(char Letter) {
-            _Letter = Letter;
-        }
-        char GetLetter() {
-            return _Letter;
         }
         
         static int CountEachWord(string S1) {
@@ -64,7 +56,7 @@ class clsString {
             }
         }
         void readFirstLetterOfEachWord() {
-            return readFirstLetterOfEachWord(_Value);
+            readFirstLetterOfEachWord(_Value);
         }
         static string UppercaseFirstLetterOfEachWord(string S1) {
             bool IsFirstLetter = true;
@@ -147,18 +139,12 @@ class clsString {
             }
             return count;
         }
-        int CountLetter(bool MatchCase = true) {
-            return CountLetter(_Value, _Letter, MatchCase);
-        }
         int CountLetter(char Letter, bool MatchCase = true) {
             return CountLetter(_Value, Letter, MatchCase);
         }
         static bool IsVowel(char C1) {
             C1 = tolower(C1);
             return (C1 == 'a' || C1 == 'e' || C1 == 'i' || C1 == 'o' || C1 == 'u');
-        }
-        bool IsVowel() {
-            return IsVowel(_Letter);
         }
         static int CountVowel(string s1) {
             int vowel = 0;
@@ -175,22 +161,20 @@ class clsString {
         static void PrintEachWord(string S1) {
             string CurrentWord = "";
             for (int i = 0; i < S1.length(); i++) {
-                    if (S1[i] != ' ') {
-                        CurrentWord += S1[i];
-                    }
-                    else {
-                        cout << endl;
-                        CurrentWord = "";
-                    }
-
+                if (S1[i] != ' ') {
+                    CurrentWord += S1[i];
+                }
+                else if (CurrentWord != "") {
+                    cout << CurrentWord << endl;
+                    CurrentWord = "";
+                }
             }
             if (CurrentWord != "") {
-                    cout << CurrentWord;
-                    cout << endl;
+                cout << CurrentWord << endl;
             }
         }
         void PrintEachWord() {
-            return PrintEachWord(_Value);
+            PrintEachWord(_Value);
         }
         static string TrimLeft(string S1) {
             for (int i = 0; i <= S1.length() - 1; i++) {
@@ -263,15 +247,111 @@ class clsString {
 
             return S1.substr(0,S1.length() - delim.length());
         }
-
+        //Error
         static string JoinString(string arrString[], int len, string delim) {
             string S1 = "";
-            for (int i = 0; i <= len; i++) {
+            for (int i = 0; i < len; i++) {
                 S1 += arrString[i] + delim;
             }
 
             return S1.substr(0,S1.length() - delim.length());
         }
+        static bool isPunctuation(char c) {
+            return (c >= 33 && c <= 47) ||
+                (c >= 58 && c <= 64) ||
+                (c >= 91 && c <= 96) ||
+                (c >= 123 && c <= 126);
+        }
+        static string RemovePunctuations(string originalText) {
+            string UpdatedString;
+            for (char c : originalText) {
+
+                if (!ispunct(c)) {
+                    UpdatedString += c ;
+                }
+            }
+            return UpdatedString;
+        }
+
+        static string ToLowerCase(string S5) {
+            for (int i = 0; i <= S5.length() - 1; i++) {
+                S5[i] = tolower(S5[i]);
+            }
+            return S5;
+        }
+        static string RemoveTrailingPunctuation(string S4) {
+            if (S4.empty()) {
+                return S4;
+            }
+            // إزالة من النهاية أولاً
+            while (!S4.empty() && isPunctuation(S4.back())) {
+                S4.pop_back();
+            }
+            // إزالة من البداية
+            while (!S4.empty() && isPunctuation(S4.front())) {
+                S4.erase(0,1);
+            }
+            return S4;
+        }
+
+        static string ReplaceWords(string S1, string S2, string S3) {
+            vector <string> vString;
+            vString = SplitString(S1 ," ");
+            string UpdatedString = "";
+            string cleanWord;
+            for (int i = 0; i <= vString.size() - 1; i++) {
+                if (vString[i].empty() || vString[i] == " ") {
+                    continue;
+                }
+                string original = vString[i];
+                cleanWord = RemoveTrailingPunctuation(vString[i]);
+                if (cleanWord == S2) {
+                    string frontPunct = "", backPunct = "";
+                    if (isPunctuation(original.back())) {
+                        backPunct = original.back();
+                    }
+                    if (isPunctuation(original.front())) {
+                        frontPunct = original.front();
+                    }
+                    vString[i] = frontPunct + S3 + backPunct;
+                }
+            }
+            for (string &s : vString) {
+                UpdatedString += s + " ";
+            }
+            UpdatedString = UpdatedString.substr(0, UpdatedString.length() - 1); // remove last space
+            return UpdatedString;
+        }
+        static string ReplaceIgnoreCase(string originalText, string wordToReplace, string replacementWord) {
+            vector <string> vString;
+            vString = SplitString(originalText ," ");
+            string UpdatedString = "";
+            string cleanWord;
+            for (int i = 0; i <= vString.size() - 1; i++) {
+                if (vString[i].empty() || vString[i] == " ") {
+                    continue;
+                }
+                string original = vString[i];
+                cleanWord = RemoveTrailingPunctuation(vString[i]);
+                if (ToLowerCase(cleanWord) == ToLowerCase(wordToReplace)) {
+                    string frontPunct = "", backPunct = "";
+                    if (isPunctuation(original.back())) {
+                        backPunct = original.back();
+                    }
+                    if (isPunctuation(original.front())) {
+                        frontPunct = original.front();
+                    }
+                    vString[i] = frontPunct + replacementWord + backPunct;
+                }
+            }
+            for (string &s : vString) {
+                UpdatedString += s + " ";
+            }
+            UpdatedString = UpdatedString.substr(0, UpdatedString.length() - 1); // remove last space
+            return UpdatedString;
+        }
+
+
 
 };
 
