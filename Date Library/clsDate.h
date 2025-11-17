@@ -5,6 +5,8 @@
 #include <cctype>
 #include <iomanip>
 #include <string>
+#include <vector>
+#include <ctime>
 using namespace std;
 
 class clsDate{
@@ -27,6 +29,9 @@ class clsDate{
             Date._Day = Day;
             Date._Month = Month;
             Date._Year = Year;
+        }
+        clsDate(short DayOrderInYear, short Year) {
+            Date = GetDateFromDayOrderInYear(DayOrderInYear, Year);
         }
         void SetDay(int Day){
             Date._Day = Day;
@@ -271,140 +276,347 @@ class clsDate{
 
         
         // Week/Month/Year increments and decrements
-        _sDate IncreaseDateByOneWeek(_sDate &Date) {
+        static _sDate IncreaseDateByOneWeek(_sDate &Date) {
             return IncreaseDateByXDays(Date, 7);
         }
         _sDate IncreaseDateByOneWeek() {
             return IncreaseDateByOneWeek(Date);
         }
 
-        _sDate IncreaseDateByXWeeks(_sDate &Date, int AddingXWeeks) {
+        static _sDate IncreaseDateByXWeeks(_sDate &Date, int AddingXWeeks) {
             return IncreaseDateByXDays(Date, AddingXWeeks * 7);
         }
-
         _sDate IncreaseDateByXWeeks(int XWeeks) {
             return IncreaseDateByXWeeks(Date, XWeeks);
         }
-        
 
-        _sDate IncreaseDateByOneMonth(_sDate Date) {
+        static _sDate IncreaseDateByOneMonth(_sDate &Date) {
             if (IsLastMonthInYear(Date._Month)) {
-                Date._Month = 1;
-                Date._Year++;
+            Date._Month = 1;
+            Date._Year++;
             } else {
-                Date._Month++;
+            Date._Month++;
             }
             
-            // Adjust for months with different days
             short daysInNewMonth = NumberOfDaysInAMonth(Date._Month, Date._Year);
             if (Date._Day > daysInNewMonth) {
-                Date._Day = daysInNewMonth;
+            Date._Day = daysInNewMonth;
             }
             
             return Date;
         }
+        _sDate IncreaseDateByOneMonth() {
+            return IncreaseDateByOneMonth(Date);
+        }
 
-        _sDate IncreaseDateByXMonths(_sDate Date, int AddingXMonths) {
+        static _sDate IncreaseDateByXMonths(_sDate &Date, int AddingXMonths) {
             for (int i = 1; i <= AddingXMonths; i++) {
-                Date = IncreaseDateByOneMonth(Date);
+            Date = IncreaseDateByOneMonth(Date);
             }
             return Date;
         }
+        _sDate IncreaseDateByXMonths(int AddingXMonths) {
+            return IncreaseDateByXMonths(Date, AddingXMonths);
+        }
 
-        _sDate IncreaseDateByOneYear(_sDate Date) {
+        static _sDate IncreaseDateByOneYear(_sDate &Date) {
             Date._Year++;
             return Date;
         }
+        _sDate IncreaseDateByOneYear() {
+            return IncreaseDateByOneYear(Date);
+        }
 
-        _sDate IncreaseDateByXYears(_sDate Date, int AddingXYears) {
+        static _sDate IncreaseDateByXYears(_sDate &Date, int AddingXYears) {
             Date._Year += AddingXYears;
             return Date;
         }
+        _sDate IncreaseDateByXYears(int AddingXYears) {
+            return IncreaseDateByXYears(Date, AddingXYears);
+        }
 
-        _sDate IncreaseDateByOneDecade(_sDate Date) {
+        static _sDate IncreaseDateByOneDecade(_sDate &Date) {
             Date._Year += 10;
             return Date;
         }
+        _sDate IncreaseDateByOneDecade() {
+            return IncreaseDateByOneDecade(Date);
+        }
 
-        _sDate IncreaseDateByXDecades(_sDate Date, int AddingXDecades) {
+        static _sDate IncreaseDateByXDecades(_sDate &Date, int AddingXDecades) {
             Date._Year += (AddingXDecades * 10);
             return Date;
         }
+        _sDate IncreaseDateByXDecades(int AddingXDecades) {
+            return IncreaseDateByXDecades(Date, AddingXDecades);
+        }
 
-        _sDate IncreaseDateByOneCentury(_sDate Date) {
+        static _sDate IncreaseDateByOneCentury(_sDate &Date) {
             Date._Year += 100;
             return Date;
         }
+        _sDate IncreaseDateByOneCentury() {
+            return IncreaseDateByOneCentury(Date);
+        }
 
-        _sDate IncreaseDateByOneMillennium(_sDate Date) {
+        static _sDate IncreaseDateByOneMillennium(_sDate &Date) {
             Date._Year += 1000;
             return Date;
         }
+        _sDate IncreaseDateByOneMillennium() {
+            return IncreaseDateByOneMillennium(Date);
+        }
 
-        _sDate DecreaseDateByOneWeek(_sDate Date) {
+        static _sDate DecreaseDateByOneWeek(_sDate &Date) {
             return DecreaseDateByXDays(Date, 7);
         }
+        _sDate DecreaseDateByOneWeek() {
+            return DecreaseDateByOneWeek(Date);
+        }
 
-        _sDate DecreaseDateByXWeeks(_sDate Date, int XWeeks) {
+        static _sDate DecreaseDateByXWeeks(_sDate &Date, int XWeeks) {
             return DecreaseDateByXDays(Date, XWeeks * 7);
         }
+        _sDate DecreaseDateByXWeeks(int XWeeks) {
+            return DecreaseDateByXWeeks(Date, XWeeks);
+        }
 
-        _sDate DecreaseDateByOneMonth(_sDate Date) {
+        static _sDate DecreaseDateByOneMonth(_sDate &Date) {
             if (Date._Month == 1) {
-                Date._Month = 12;
-                Date._Year--;
+            Date._Month = 12;
+            Date._Year--;
             } else {
-                Date._Month--;
+            Date._Month--;
             }
             
-            // Adjust for months with different days
             short daysInNewMonth = NumberOfDaysInAMonth(Date._Month, Date._Year);
             if (Date._Day > daysInNewMonth) {
-                Date._Day = daysInNewMonth;
+            Date._Day = daysInNewMonth;
             }
             
             return Date;
         }
+        _sDate DecreaseDateByOneMonth() {
+            return DecreaseDateByOneMonth(Date);
+        }
 
-        _sDate DecreaseDateByXMonths(_sDate Date, int XMonths) {
+        static _sDate DecreaseDateByXMonths(_sDate &Date, int XMonths) {
             for (int i = 1; i <= XMonths; i++) {
-                Date = DecreaseDateByOneMonth(Date);
+            Date = DecreaseDateByOneMonth(Date);
             }
             return Date;
         }
+        _sDate DecreaseDateByXMonths(int XMonths) {
+            return DecreaseDateByXMonths(Date, XMonths);
+        }
 
-        _sDate DecreaseDateByOneYear(_sDate Date) {
+        static _sDate DecreaseDateByOneYear(_sDate &Date) {
             Date._Year--;
             return Date;
         }
-
-        _sDate DecreaseDateByXYears(_sDate Date, int XYears) {
-            Date._Year -= XYears;
-            return Date;
-        }
-
-        _sDate DecreaseDateByOneDecade(_sDate Date) {
-            Date._Year -= 10;
-            return Date;
-        }
-
-        _sDate DecreaseDateByXDecades(_sDate Date, int XDecades) {
-            Date._Year -= (XDecades * 10);
-            return Date;
-        }
-
-        // Aliases for naming variations found in problems
-        _sDate DecreaseDateByOneyear(_sDate Date) {
+        _sDate DecreaseDateByOneYear() {
             return DecreaseDateByOneYear(Date);
         }
 
-        _sDate DecreaseDateByXyears(_sDate Date, int X_Years) {
-            return DecreaseDateByXYears(Date, X_Years);
+        static _sDate DecreaseDateByXYears(_sDate &Date, int XYears) {
+            Date._Year -= XYears;
+            return Date;
+        }
+        _sDate DecreaseDateByXYears(int XYears) {
+            return DecreaseDateByXYears(Date, XYears);
         }
 
-        _sDate DecreaseDateByXYearsFaster(_sDate Date, int X_Years) {
-            return DecreaseDateByXYears(Date, X_Years);
+        static _sDate DecreaseDateByOneDecade(_sDate &Date) {
+            Date._Year -= 10;
+            return Date;
+        }
+        _sDate DecreaseDateByOneDecade() {
+            return DecreaseDateByOneDecade(Date);
         }
 
+        static _sDate DecreaseDateByXDecades(_sDate &Date, int XDecades) {
+            Date._Year -= (XDecades * 10);
+            return Date;
+        }
+        _sDate DecreaseDateByXDecades(int XDecades) {
+            return DecreaseDateByXDecades(Date, XDecades);
+        }
+
+        static _sDate DecreaseDateByOneCentury(_sDate &Date) {
+            Date._Year -= 100;
+            return Date;
+        }
+        _sDate DecreaseDateByOneCentury() {
+            return DecreaseDateByOneCentury(Date);
+        }
+
+        static _sDate DecreaseDateByOneMillennium(_sDate &Date) {
+            Date._Year -= 1000;
+            return Date;
+        }
+        _sDate DecreaseDateByOneMillennium() {
+            return DecreaseDateByOneMillennium(Date);
+        }
+
+        static short NumberOfTotalDaysFormTheBeginning(short day, short month, short year) {
+            short Total = 0;
+            for (short i = 1; i <= month - 1; i++) {
+                Total += NumberOfDaysInAMonth(i, year);
+            }
+            Total += day;
+            return Total;
+        }
+
+        short NumberOfTotalDaysFromTheBeginning() {
+            return NumberOfTotalDaysFormTheBeginning(Date._Day, Date._Month, Date._Year);
+        }
+        static short DayOfWeekOrder(_sDate Date) {
+            return DayOfWeekOrder(Date._Day, Date._Month, Date._Year);
+        }
+
+        static short DaysUntilEndOfWeek(_sDate &Date) {
+            short dayOrder = DayOfWeekOrder(Date);
+            return (6 - dayOrder); // Saturday is day 6
+        }
+
+        short DaysUntilEndOfWeek() {
+           return DaysUntilEndOfWeek(Date);
+        }
+
+        static short DaysUntilEndOfMonth(_sDate &Date) {
+            short NumberOfDaysInCurrentMonth = NumberOfDaysInAMonth(Date._Month, Date._Year);
+            return NumberOfDaysInCurrentMonth - Date._Day;
+        }
+
+        short DaysUntilEndOfMonth() {
+           return DaysUntilEndOfMonth(Date);
+        }
+
+        static short DaysUntilEndOfYear(_sDate &Date) {
+            short totalDays = NumberOfTotalDaysFormTheBeginning(Date._Day, Date._Month, Date._Year);
+            short daysInYear = IsLeapYear(Date._Year) ? 366 : 365;
+            return daysInYear - totalDays;
+        }
+
+        short DaysUntilEndOfYear() {
+           return DaysUntilEndOfYear(Date);
+        }
+
+        
+        static _sDate GetDateFromDayOrderInYear(short DaysOrderInYear, short year) {
+            _sDate Date;
+            Date._Year = year;
+            Date._Month = 1;
+            Date._Day = 1;
+            
+            short remainingDays = DaysOrderInYear - 1;
+            
+            while (remainingDays > 0) {
+                short daysInCurrentMonth = NumberOfDaysInAMonth(Date._Month, Date._Year);
+                
+                if (remainingDays >= daysInCurrentMonth - Date._Day + 1) {
+                    remainingDays -= (daysInCurrentMonth - Date._Day + 1);
+                    Date._Month++;
+                    Date._Day = 1;
+                } else {
+                    Date._Day += remainingDays;
+                    remainingDays = 0;
+                }
+            }
+            
+            return Date;
+        }
+
+        static bool IsEndOfWeek(_sDate &Date) {
+            return DayOfWeekOrder(Date) == 6; // Saturday
+        }
+
+        bool IsEndOfWeek() {
+            return IsEndOfWeek(Date);
+        }
+
+        static bool IsWeekEnd(_sDate &Date) {
+            short dayOrder = DayOfWeekOrder(Date);
+            return (dayOrder == 5 || dayOrder == 6); // Friday = 5, Saturday = 6
+        }
+
+        bool IsWeekEnd() {
+            return IsWeekEnd(Date);
+        }
+
+
+        static bool IsBusinessDay(_sDate &Date) {
+            return !IsWeekEnd(Date);
+        }
+
+        bool IsBusinessDay() {
+            return IsBusinessDay(Date);
+        }
+
+        static bool IsValidDate(short day, short month, short year) {
+            if (month < 1 || month > 12 || day < 1) {
+                return false;
+            }
+            return day <= NumberOfDaysInAMonth(month, year);
+        }
+
+        bool IsValidDate() {
+            return IsValidDate(Date._Day, Date._Month, Date._Year);
+        }
+
+        static void SwapDates(_sDate& Date1, _sDate& Date2) {
+            _sDate TempDate = Date1;
+            Date1 = Date2;
+            Date2 = TempDate;
+        }
+
+        
+        static int ActualVacationDays(_sDate Date1, _sDate Date2) {
+            int Days = 0;
+            
+            if (IsDate1AfterDate2(Date1, Date2)) {
+                SwapDates(Date1, Date2);
+            }
+            
+            while (!IsDate1EqualDate2(Date1, Date2)) {
+                if (IsBusinessDay(Date1)) {
+                    Days++;
+                }
+                Date1 = IncreaseDateByOneDay(Date1);
+            }
+            
+            return Days;
+        }
+
+        static int GetDifferenceInDays(_sDate Date1, _sDate Date2, bool IncludingEndDay) {
+            int Days = 0;
+            if (IsDate1AfterDate2(Date1, Date2)) {
+                SwapDates(Date1, Date2);
+            }
+            while (!IsDate1EqualDate2(Date1, Date2)) {
+                Days++;
+                Date1 = IncreaseDateByOneDay(Date1);
+            }
+            return IncludingEndDay ? ++Days : Days;
+        }
+
+        int GetDifferenceInDays(clsDate Date2, bool IncludingEndDay) {
+            return GetDifferenceInDays(this->Date, Date2.Date, IncludingEndDay);
+        }
+
+        static int PeriodLengthInDays(_sDate Date1, _sDate Date2, bool IncludingEndDay) {
+            return GetDifferenceInDays(Date1, Date2, IncludingEndDay);
+        }
+
+        static int GetYourAgeInDays(_sDate BirthDate, _sDate Today, bool IncludingEndDay) {
+            return GetDifferenceInDays(BirthDate, Today, IncludingEndDay);
+        }
+
+        int GetYourAgeInDays(bool IncludingEndDay) {
+            clsDate Today;
+            return GetDifferenceInDays(this->Date, Today.Date, IncludingEndDay);
+        }
+
+        
 
 };

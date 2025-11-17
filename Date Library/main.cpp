@@ -19,9 +19,11 @@ int main() {
     Date3.Print();
     Date3.IncreaseDateByOneWeek();
     Date3.Print();
-    Date3.IncreaseDateByXWeeks();
+    Date3.IncreaseDateByXWeeks(1);
     Date3.Print();
-    //فضل بس 
-    //clsDate Date2(273, 2007);
+    Date3.IncreaseDateByOneMonth();
+    Date3.Print();   
+    clsDate Date4(273, 2007);
+    Date4.Print();
     return 0;
 }
