@@ -555,9 +555,13 @@ class clsDate{
 
         static bool IsValidDate(short day, short month, short year) {
             if (month < 1 || month > 12 || day < 1) {
-                return false;
+            return false;
             }
             return day <= NumberOfDaysInAMonth(month, year);
+        }
+
+        static bool IsValidDate(_sDate Date) {
+            return IsValidDate(Date._Day, Date._Month, Date._Year);
         }
 
         bool IsValidDate() {
