@@ -1,0 +1,22 @@
+# Visual Studio
+.vs/
+*.slnx
+*.vc.db
+*.ipch
+
+# Build artifacts
+*.exe
+*.dll
+*.obj
+*.lib
+*.exp
+
+# Swap files
+*.swp
+
+# IDE files
+*.vscode/
+*.idea/
+
+# Temporary
+*.log
