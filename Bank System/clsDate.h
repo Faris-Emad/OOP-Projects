@@ -559,6 +559,9 @@ class clsDate{
             }
             return day <= NumberOfDaysInAMonth(month, year);
         }
+        bool IsValidDate(_sDate Date) {
+            return IsValidDate(Date._Day, Date._Month, Date._Year);
+        }
 
         bool IsValidDate() {
             return IsValidDate(Date._Day, Date._Month, Date._Year);

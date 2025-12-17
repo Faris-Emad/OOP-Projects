@@ -215,9 +215,6 @@ class clsString {
                 }
                 S1.erase(0,pos + delim.length());
             }
-            if (S1 != "") {
-                vString.push_back(S1);
-            }
             return vString;
         }
         vector<string> SplitString(string delim) {
