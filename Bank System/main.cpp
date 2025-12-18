@@ -41,7 +41,7 @@ void UpdateClient(){
     ReadClientInfo(Client1);
     
     clsBankClient::enSaveResults SaveResult;
-    SaveResult = Client1.Save();  // ✅ هذا السطر كان مفقودًا! 
+    SaveResult = Client1.Save(); 
 
     switch (SaveResult)
     {
@@ -60,9 +60,39 @@ void UpdateClient(){
 }
 
 
+void AddNewClient() {
+    string AccountNumber = "";
+    cout << "Please Enter Account Number: " ;
+    AccountNumber = clsInputValidate::ReadString();
+    while (clsBankClient::IsClientExist(AccountNumber)) {
+        cout << "Account Number Is Already Used, Choose another one: ";
+        AccountNumber = clsInputValidate::ReadString();
+    }
+    clsBankClient NewClient = clsBankClient::GetAddNewClientObject(AccountNumber);
+    ReadClientInfo(NewClient);
+    clsBankClient::enSaveResults SaveResult;
 
+    SaveResult = NewClient.Save();
+        switch (SaveResult)
+    {
+        case clsBankClient::enSaveResults::svSucceeded:{
+            cout << "\nAccount Add Successfully :-)\n";
+            NewClient.PrintInfo();
+            break;
+        }
+        case clsBankClient::enSaveResults::svFaildEmptyObject: {
+            cout << "\nError account was not saved because it's Empty";
+            break;
+        }
+        case clsBankClient::enSaveResults::svFaildAccountNumberExists:{
+            cout << "\nError account was not saved because already is Exists";
+            break;
+        }
+    }
+}
 
 int main() {
-     UpdateClient();
+    //UpdateClient();
+    AddNewClient();
     return 0;
 }
