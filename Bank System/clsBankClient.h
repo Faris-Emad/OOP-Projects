@@ -175,6 +175,8 @@ public:
                 return enSaveResults::svSucceeded;
                 break;
             }
+            default:   
+                return enSaveResults::svFaildEmptyObject;
 
         }
     }

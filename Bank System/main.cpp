@@ -39,10 +39,30 @@ void UpdateClient(){
     cout << "\n\nUpdate Client Info:";
     cout << "\n---------------------\n";
     ReadClientInfo(Client1);
+    
+    clsBankClient::enSaveResults SaveResult;
+    SaveResult = Client1.Save();  // ✅ هذا السطر كان مفقودًا! 
+
+    switch (SaveResult)
+    {
+        case clsBankClient::enSaveResults::svSucceeded: 
+        {
+            cout << "\nAccount Updated Successfully :-)\n";
+            Client1.PrintInfo();
+            break;
+        }
+        case clsBankClient::enSaveResults::svFaildEmptyObject:
+        {
+            cout << "\nError account was not saved because it's Empty";
+            break;
+        }
+    }
 }
 
 
+
+
 int main() {
-    UpdateClient();
+     UpdateClient();
     return 0;
 }
