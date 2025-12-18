@@ -45,8 +45,9 @@ class clsInputValidate {
                 return UserNumber;
             }
         }
-        static double ReadDblNumber(string messageError) {
+        static double ReadDblNumber() {
             double UserNumber = 0;
+            string messageError = "Error";
             while (true) {
                 cin >> UserNumber;
                 if (cin.fail()) {

@@ -5,15 +5,26 @@ using namespace std;
 
 
 
-void ReadClientInfo(clsBankClient& Client) {
-        Client.SetPinCode(clsInputValidate::ReadString("Enter PinCode? "));
-        cout << endl;
-        cout << "Enter Account Balnce: ";
-        cin >> Client.SetAccountBalance(clsInputValidate::ReadDblNumber("Error"))
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+void ReadClientInfo(clsBankClient& Client)
+{
+    cout << "\nEnter FirstName: ";
+    Client.SetFirstName(clsInputValidate::ReadString());
 
+    cout << "\nEnter LastName: ";
+    Client.SetLastName(clsInputValidate::ReadString());
+
+    cout << "\nEnter Email: ";
+    Client.SetEmail(clsInputValidate::ReadString());
+
+    cout << "\nEnter Phone: ";
+    Client.SetPhone(clsInputValidate::ReadString());
+
+    cout << "\nEnter PinCode: ";
+    Client.SetPinCode(clsInputValidate::ReadString());
+
+    cout << "\nEnter Account Balance: ";
+    Client.SetAccountBalance(clsInputValidate::ReadDblNumber());
 }
-
 
 void UpdateClient(){
     string AccountNumber = "";

@@ -47,7 +47,7 @@ private:
         MyFile.open("Clients.txt", ios::out); // Open file for writing (overwrites existing)
         string DataLine;
         if(MyFile.is_open()) {
-            for(clsBankClient& C : _vClients) {
+            for(clsBankClient C : _vClients) {
                 DataLine = _ConvertLineToClientObject(C);
                 MyFile << DataLine << endl;
             }
@@ -55,7 +55,7 @@ private:
         }
     }
 
-    static void _Update() {
+    void _Update() {
         vector<clsBankClient> _vClients;
         _vClients = _LoadClientsDataFromFile();
         for(clsBankClient& C : _vClients) {
@@ -80,7 +80,7 @@ public:
     bool IsEmpty() {
         return(_Mode == enMode::EmptyMode);
     }
-     string AccountNumber() {
+    string AccountNumber() {
         return _AccountNumber;
     }
     void SetAccountBalance(float AccountBalance) {
