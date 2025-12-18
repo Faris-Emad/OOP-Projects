@@ -22,6 +22,17 @@ private:
         return clsBankClient(enMode::UpdateMode, vClientData[0], vClientData[1],vClientData[2],
             vClientData[3],vClientData[4],vClientData[5],stod(vClientData[6]));
     }
+    static string _ConverClientObjectToLine(clsBankClient Client) {
+            string DataLine = "";
+            DataLine += Client.FirstName() + SEPARATOR;
+            DataLine += Client. LastName() + SEPARATOR;
+            DataLine += Client.Email() + SEPARATOR;
+            DataLine += Client.Phone() + SEPARATOR;
+            DataLine += Client. AccountNumber() + SEPARATOR;
+            DataLine += Client.GetPinCode() + SEPARATOR;
+            DataLine += to_string(Client.GetAccountBalance());
+            return DataLine;
+    }
     static clsBankClient _GetEmptyClinetObject() {
         return clsBankClient(enMode::EmptyMode, "", "", "", "", "","", 0);
     }
@@ -48,7 +59,7 @@ private:
         string DataLine;
         if(MyFile.is_open()) {
             for(clsBankClient C : _vClients) {
-                DataLine = _ConvertLineToClientObject(C);
+                DataLine = _ConverClientObjectToLine(C);
                 MyFile << DataLine << endl;
             }
             MyFile.close();
