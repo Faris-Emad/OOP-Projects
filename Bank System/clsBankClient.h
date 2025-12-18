@@ -83,7 +83,7 @@ private:
 
     void _AddDateLineToFile(string stDateLine) {
         fstream MyFile;
-        MyFile.open("Clients.txt", ios::out); // Open file for writing (overwrites existing)
+        MyFile.open("Clients.txt", ios::out | ios::app); 
         if(MyFile.is_open()) {
             MyFile << stDateLine << endl;
             MyFile.close();
