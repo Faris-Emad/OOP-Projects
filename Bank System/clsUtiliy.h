@@ -48,6 +48,94 @@ public:
         return randNum;
     }
 
+    static string NumberToText(long long number) {
+        if (number == 0) {
+            return "zero";
+        }
+
+        // Handle negative numbers
+        if (number < 0) {
+            return "negative " + NumberToText(-number);
+        }
+        if (number >= 1 && number <= 19) {
+            const string arr[] = {
+                "", "one", "two", "three", "four", "five",
+                "six", "seven", "eight", "nine", "ten",
+                "eleven", "twelve", "thirteen", "fourteen", "fifteen",
+                "sixteen", "seventeen", "eighteen", "nineteen"
+            };
+            return arr[number];
+        }
+
+        if (number >= 20 && number <= 99) {
+            const string arr[] = {"","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"};
+            string result = arr[number / 10];
+            if (number % 10 != 0) {
+                result += " " + NumberToText(number % 10);
+            }
+            return result;
+        }
+
+        if (number >= 100 && number <= 999) {
+            string result = NumberToText(number / 100) + " hundred";
+            if (number % 100 != 0) {
+                result += " " + NumberToText(number % 100);
+            }
+            return result;
+        }
+
+        if (number >= 1000 && number <= 999999) {
+            string result = NumberToText(number / 1000) + " thousand";
+            if (number % 1000 != 0) {
+                result += " " + NumberToText(number % 1000);
+            }
+            return result;
+        }
+
+        if (number >= 1000000 && number <= 999999999) {
+            string result = NumberToText(number / 1000000) + " million";
+            if (number % 1000000 != 0) {
+                result += " " + NumberToText(number % 1000000);
+            }
+            return result;
+        }
+
+        if (number >= 1000000000 && number <= 999999999999LL) {
+            string result = NumberToText(number / 1000000000) + " billion";
+            if (number % 1000000000 != 0) {
+                result += " " + NumberToText(number % 1000000000);
+            }
+            return result;
+        }
+
+        if (number >= 1000000000000LL && number <= 999999999999999LL) {
+            string result = NumberToText(number / 1000000000000LL) + " trillion";
+            if (number % 1000000000000LL != 0) {
+                result += " " + NumberToText(number % 1000000000000LL);
+            }
+            return result;
+        }
+
+        if (number >= 1000000000000000LL && number <= 999999999999999999LL) {
+            string result = NumberToText(number / 1000000000000000LL) + " quadrillion";
+            if (number % 1000000000000000LL != 0) {
+                result += " " + NumberToText(number % 1000000000000000LL);
+            }
+            return result;
+        }
+
+        // For numbers >= 1 quintillion (1000000000000000000LL)
+        if (number >= 1000000000000000000LL) {
+            string result = NumberToText(number / 1000000000000000000LL) + " quintillion";
+            if (number % 1000000000000000000LL != 0) {
+                result += " " + NumberToText(number % 1000000000000000000LL);
+            }
+            return result;
+        }
+
+        return "";
+    }
+
     static char GetRandomCharacter(enCharType CharType)
     {
 
@@ -82,7 +170,7 @@ public:
             return char(RandomNumber(48, 57));
             break;
         }
-    defualt:
+        defualt:
         {
             return char(RandomNumber(65, 90));
             break;
