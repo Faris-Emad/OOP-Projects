@@ -17,6 +17,7 @@ private:
     string _AccountNumber;
     string _PinCode;
     float _AccountBalance;
+    bool _MarkForDelete = false;
     static clsBankClient _ConvertLineToClientObject(string line) {
         vector<string> vClientData = clsString::SplitString(line, SEPARATOR);
         return clsBankClient(enMode::UpdateMode, vClientData[0], vClientData[1],vClientData[2],
@@ -59,8 +60,11 @@ private:
         string DataLine;
         if(MyFile.is_open()) {
             for(clsBankClient C : _vClients) {
-                DataLine = _ConverClientObjectToLine(C);
-                MyFile << DataLine << endl;
+                if(C._MarkForDelete == false) {
+                    DataLine = _ConverClientObjectToLine(C);
+                    MyFile << DataLine << endl;
+                }
+
             }
             MyFile.close();
         }
@@ -89,6 +93,8 @@ private:
             MyFile.close();
         }
     }
+
+
 
 public:
     clsBankClient(enMode Mode, string FirstName, string LastName,
@@ -206,5 +212,23 @@ public:
     }
     static clsBankClient GetAddNewClientObject(string AccountNumber) {
         return clsBankClient(enMode::AddNewMode, "", "", "","", AccountNumber, "",0);
+    }
+    // Delete form file and retrun Null Object 
+    bool Delete() {
+        vector <clsBankClient> _Clients;
+        for(clsBankClient& C : _Clients) {
+            if (C.AccountNumber() == _AccountNumber)
+            {
+                C._MarkForDelete = true;
+                break;
+            }  
+        }
+        _SaveClientsDataToFile(_Clients);
+        *this = _GetEmptyClinetObject();
+        return true;
+    }
+
+    static vector <clsBankClient> GetClientsList() {
+        return _LoadClientsDataFromFile();
     }
 };

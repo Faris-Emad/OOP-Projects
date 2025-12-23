@@ -5,8 +5,7 @@ using namespace std;
 
 
 
-void ReadClientInfo(clsBankClient& Client)
-{
+void ReadClientInfo(clsBankClient& Client){
     cout << "\nEnter FirstName: ";
     Client.SetFirstName(clsInputValidate::ReadString());
 
@@ -39,13 +38,13 @@ void UpdateClient(){
     cout << "\n\nUpdate Client Info:";
     cout << "\n---------------------\n";
     ReadClientInfo(Client1);
-    
+
     clsBankClient::enSaveResults SaveResult;
-    SaveResult = Client1.Save(); 
+    SaveResult = Client1.Save();
 
     switch (SaveResult)
     {
-        case clsBankClient::enSaveResults::svSucceeded: 
+        case clsBankClient::enSaveResults::svSucceeded:
         {
             cout << "\nAccount Updated Successfully :-)\n";
             Client1.PrintInfo();
@@ -91,8 +90,68 @@ void AddNewClient() {
     }
 }
 
+void DeleteClient() {
+    string AccountNumber = "";
+    cout << "Please Enter Account Number: " ;
+    AccountNumber = clsInputValidate::ReadString();
+    while (!clsBankClient::IsClientExist(AccountNumber)) {
+        cout << "Account Number Is Not Found, Choose another one: ";
+        AccountNumber = clsInputValidate::ReadString();
+    }
+    clsBankClient Client = clsBankClient::Find(AccountNumber);
+    Client.PrintInfo();
+    cout << "\n Are you sure you want to delete this client y/n?";
+    char Answer = 'n';
+    cin >> Answer;
+    if(Answer == 'y' || Answer == 'Y') {
+        if(Client.Delete()) {
+            cout << "\nClient Deleted Successfully\n";
+            Client.PrintInfo();
+        }
+        else 
+            cout << "\nError Client Was Not Deleted\n";
+    }
+}
+
+void ShowClientsList() {
+    vector <clsBankClient> vClients = clsBankClient::GetClientsList();
+    
+    cout << "\n\t\t\t\t\tClient List (" << vClients.size() << ") Client(s).\n";
+    cout << "\n_______________________________________________________________________________________________________________________\n";
+    
+    // Print table header
+    cout << "| " << left << setw(15) << "Accout Number";
+    cout << "| " << left << setw(20) << "Client Name";
+    cout << "| " << left << setw(12) << "Phone";
+    cout << "| " << left << setw(25) << "Email";
+    cout << "| " << left << setw(10) << "Pin Code";
+    cout << "| " << left << setw(12) << "Balance";
+    cout << "|\n_______________________________________________________________________________________________________________________\n";
+    
+    if(vClients.size() == 0) {
+        cout << "\t\t\t\tNo Clients Available In the System!";
+    }
+    else {
+        cout << fixed << setprecision(2);
+        // Print client data rows
+        for(clsBankClient& client : vClients) {
+            cout << "| " << setw(15) << left << client.AccountNumber();
+            cout << "| " << setw(20) << left << client.FullName();
+            cout << "| " << setw(12) << left << client.Phone();
+            cout << "| " << setw(25) << left << client.Email();
+            cout << "| " << setw(10) << left << client.GetPinCode();
+            cout << "| " << setw(12) << left << client.GetAccountBalance();
+            cout << "|\n";
+        }
+    }
+    cout << "_______________________________________________________________________________________________________________________\n";
+}
+
+
 int main() {
     //UpdateClient();
-    AddNewClient();
+    //AddNewClient();
+    //DeleteClient();
+    ShowClientsList();
     return 0;
 }
