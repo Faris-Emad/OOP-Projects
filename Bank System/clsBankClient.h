@@ -201,7 +201,7 @@ public:
     }
     // Delete form file and retrun Null Object 
     bool Delete() {
-        vector <clsBankClient> _Clients;
+        vector <clsBankClient> _Clients = _LoadClientsDataFromFile();
         for(clsBankClient& C : _Clients) {
             if (C.AccountNumber() == _AccountNumber)
             {
