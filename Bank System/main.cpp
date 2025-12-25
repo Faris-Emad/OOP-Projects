@@ -61,36 +61,6 @@ void UpdateClient(){
 }
 
 
-void AddNewClient() {
-    string AccountNumber = "";
-    cout << "Please Enter Account Number: " ;
-    AccountNumber = clsInputValidate::ReadString();
-    while (clsBankClient::IsClientExist(AccountNumber)) {
-        cout << "Account Number Is Already Used, Choose another one: ";
-        AccountNumber = clsInputValidate::ReadString();
-    }
-    clsBankClient NewClient = clsBankClient::GetAddNewClientObject(AccountNumber);
-    ReadClientInfo(NewClient);
-    clsBankClient::enSaveResults SaveResult;
-
-    SaveResult = NewClient.Save();
-        switch (SaveResult)
-    {
-        case clsBankClient::enSaveResults::svSucceeded:{
-            cout << "\nAccount Add Successfully :-)\n";
-            NewClient.PrintInfo();
-            break;
-        }
-        case clsBankClient::enSaveResults::svFaildEmptyObject: {
-            cout << "\nError account was not saved because it's Empty";
-            break;
-        }
-        case clsBankClient::enSaveResults::svFaildAccountNumberExists:{
-            cout << "\nError account was not saved because already is Exists";
-            break;
-        }
-    }
-}
 
 void DeleteClient() {
     string AccountNumber = "";
@@ -113,40 +83,6 @@ void DeleteClient() {
         else 
             cout << "\nError Client Was Not Deleted\n";
     }
-}
-
-void ShowClientsList() {
-    vector <clsBankClient> vClients = clsBankClient::GetClientsList();
-    
-    cout << "\n\t\t\t\t\tClient List (" << vClients.size() << ") Client(s).\n";
-    cout << "\n_______________________________________________________________________________________________________________________\n";
-    
-    // Print table header
-    cout << "| " << left << setw(15) << "Accout Number";
-    cout << "| " << left << setw(20) << "Client Name";
-    cout << "| " << left << setw(12) << "Phone";
-    cout << "| " << left << setw(25) << "Email";
-    cout << "| " << left << setw(10) << "Pin Code";
-    cout << "| " << left << setw(12) << "Balance";
-    cout << "|\n_______________________________________________________________________________________________________________________\n";
-    
-    if(vClients.size() == 0) {
-        cout << "\t\t\t\tNo Clients Available In the System!";
-    }
-    else {
-        cout << fixed << setprecision(2);
-        // Print client data rows
-        for(clsBankClient& client : vClients) {
-            cout << "| " << setw(15) << left << client.AccountNumber();
-            cout << "| " << setw(20) << left << client.FullName();
-            cout << "| " << setw(12) << left << client.Phone();
-            cout << "| " << setw(25) << left << client.Email();
-            cout << "| " << setw(10) << left << client.GetPinCode();
-            cout << "| " << setw(12) << left << client.GetAccountBalance();
-            cout << "|\n";
-        }
-    }
-    cout << "_______________________________________________________________________________________________________________________\n";
 }
 
 

@@ -3,6 +3,7 @@
 #include "clsUtiliy.h"
 #include "clsScreen.h"
 #include "clsClientListScreen.h"
+#include "clsAddNewClient.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ class clsMainScreen:protected clsScreen{
         }
 
         static void _ShowAddNewClientsScreen() {
-            cout << "\nAdd New Client Screen Will be here...\n";
+            clsAddNewClient::AddNewClient();
 
         }
 

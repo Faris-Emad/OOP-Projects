@@ -124,21 +124,7 @@ public:
     string GetPinCode() {
         return _PinCode;
     }
-
-    void PrintInfo() {
-        cout << "==================================================\n";
-        cout << "              Clinet Card\n";
-        cout << "==================================================\n";
-        cout << "First Name : " << FirstName() << endl;
-        cout << "Last Name  : " << LastName() << endl;
-        cout << "Full Name  : " << FullName() << endl;
-        cout << "Email      : " << Email() << endl;
-        cout << "Phone      : " << Phone() << endl;
-        cout << "Acc.Number : " << _AccountNumber << endl;
-        cout << "Password   : " << _PinCode << endl;
-        cout << "Balance    : " << _AccountBalance << endl;
-    }
-
+    
     static clsBankClient Find(string AccountNumber) {
         vector <clsBankClient> vClinet;
         fstream MyFile;
