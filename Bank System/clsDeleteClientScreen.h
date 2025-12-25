@@ -24,6 +24,7 @@ class clsDeleteClientScreen : protected clsScreen {
         }
     public:
         static void DeleteClient() {
+            _DrawScreenHeader("Delete Client Screen");
             string AccountNumber = "";
             cout << "Please Enter Account Number: " ;
             AccountNumber = clsInputValidate::ReadString();
