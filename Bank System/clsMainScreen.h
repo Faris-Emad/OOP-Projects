@@ -2,6 +2,7 @@
 #include <iostream>
 #include "clsUtiliy.h"
 #include "clsScreen.h"
+#include "clsClientListScreen.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ class clsMainScreen:protected clsScreen{
             ShowMainMenu();
         }
         static void _ShowAllClientsScreen() {
-            cout << "\nClient List Screen Will be here...\n";
+            clsClientListScreen::ShowClientsList();
         }
 
         static void _ShowAddNewClientsScreen() {
