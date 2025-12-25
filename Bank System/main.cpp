@@ -2,6 +2,7 @@
 #include "clsBankClient.h"
 #include "clsInputValidate.h"
 #include "clsUtiliy.h"
+#include "clsMainScreen.h"
 using namespace std;
 
 
@@ -178,7 +179,7 @@ void ShowTotalBalances() {
     }
     cout << "_______________________________________________________________________________________________________________________\n";
     cout << "\n\t\t\t\t\t   Total Balances = " << clsBankClient::GetTotalBalances() << endl;
-    cout << "\n\t\t\t"<< clsUtil::NumberToText(clsBankClient::GetTotalBalances()) << endl;
+    cout << "\n\t\t\t"<< clsUtiliy::NumberToText(clsBankClient::GetTotalBalances()) << endl;
 }
 
 int main() {
@@ -186,6 +187,8 @@ int main() {
     //AddNewClient();
     //DeleteClient();
     //ShowClientsList();
-    ShowTotalBalances();
+    //ShowTotalBalances();
+
+    clsMainScreen::ShowMainMenu();
     return 0;
 }

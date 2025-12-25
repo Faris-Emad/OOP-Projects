@@ -26,7 +26,7 @@
 
 using namespace std;
 
-class clsUtil
+class clsUtiliy
 {
    
 public:
@@ -350,6 +350,16 @@ public:
         }
         return Text;
 
+    }
+
+    static bool GoBackOrExit(string messages = "\n\nPress [Enter] to go back to Main Menu: ") {
+        cout << messages;
+        string input;
+        getline(cin, input);
+        if (input == "x" || input == "X") {
+            return false; // Exit program
+        }
+        return true; // Return to menu
     }
 
 };
