@@ -59,7 +59,7 @@ private:
         MyFile.open("Clients.txt", ios::out); // Open file for writing (overwrites existing)
         string DataLine;
         if(MyFile.is_open()) {
-            for(clsBankClient C : _vClients) {
+            for(clsBankClient& C : _vClients) {
                 if(C._MarkForDelete == false) {
                     DataLine = _ConverClientObjectToLine(C);
                     MyFile << DataLine << endl;
