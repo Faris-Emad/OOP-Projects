@@ -1,15 +1,16 @@
-#pragma onec
+#pragma once
 #include <iostream>
+#include <iomanip>
 #include "clsScreen.h"
 #include "clsBankClient.h"
-#include <iomanip>
 #include "clsInputValidate.h"
 using namespace std;
 
 
-class clsDeleteClientScreen : protected clsScreen {
+class clsDepositScreen : protected clsScreen
+{
     private:
-            static void _PrintClient(clsBankClient Client) {
+        static void _PrintClient(clsBankClient Client) {
             cout << "==================================================\n";
             cout << "              Clinet Card\n";
             cout << "==================================================\n";
@@ -19,31 +20,36 @@ class clsDeleteClientScreen : protected clsScreen {
             cout << "Email      : " << Client.Email() << endl;
             cout << "Phone      : " << Client.Phone() << endl;
             cout << "Acc.Number : " << Client.AccountNumber() << endl;
-            cout << "Password   : " << Client.GetPinCode() << endl;
             cout << "Balance    : " << Client.AccountBalance() << endl;
         }
     public:
-        static void DeleteClient() {
-            _DrawScreenHeader("Delete Client Screen");
-            string AccountNumber = "";
-            cout << "Please Enter Account Number: " ;
-            AccountNumber = clsInputValidate::ReadString();
+       static void ShowDepsitScreen() {
+            _DrawScreenHeader("Deposit Screen");
+            cout << "Enter Account Number:";
+            string AccountNumber = clsInputValidate::ReadString();
             while (!clsBankClient::IsClientExist(AccountNumber)) {
-                cout << "Account Number Is Not Found, Choose another one: ";
+                cout << "\nClient with [" << AccountNumber << "] does not exist.\n";
                 AccountNumber = clsInputValidate::ReadString();
             }
             clsBankClient Client = clsBankClient::Find(AccountNumber);
             _PrintClient(Client);
-            cout << "\n Are you sure you want to delete this client y/n?";
+            cout << endl;
+            double Deposit = 0;
+            cout << "\nPlease enter deposit amount: ";
+            Deposit = clsInputValidate::ReadDblNumber();
+
             char Answer = 'n';
-            cin >> Answer;
-            if(Answer == 'y' || Answer == 'Y') {
-                if(Client.Delete()) {
-                    cout << "\nClient Deleted Successfully\n";
-                    _PrintClient(Client);
-                }
-                else 
-                    cout << "\nError Client Was Not Deleted\n";
+            cout << "\n\nAre you sure you want to deposit? y/n ? ";
+            Answer = clsInputValidate::ReadChar();
+            if(Answer == 'Y' || Answer == 'y') {
+                Client.Deposit(Deposit);
+                cout << "\nAmount Deposit Successful.\n";
+                cout << "\nNew Balance Is: " << Client.AccountBalance();
+                cout << endl;
             }
-        }
+            else {
+                cout << "\nOperation was cancelled.\n";
+            }
+       }
 };
+

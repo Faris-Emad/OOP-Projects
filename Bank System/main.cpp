@@ -27,7 +27,7 @@ void ShowTotalBalances() {
         for(clsBankClient& client : vClients) {
             cout << "| " << setw(15) << left << client.AccountNumber();
             cout << "| " << setw(40) << left << client.FullName();
-            cout << "| " << setw(12) << left << client.GetAccountBalance();
+            cout << "| " << setw(12) << left << client.AccountBalance();
             cout << "|\n";
             
         }

@@ -95,6 +95,20 @@ class clsInputValidate {
                 return UserString;
             }
         }
+        static char ReadChar() {
+            char UserChar;
+            while(true){
+                cin >> UserChar;
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid String, Enter again:\n";
+                    continue;
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                return UserChar;
+            }
+        }
         static int ReadIntNumberBetween(int from , int to, string messageError) {
              int UserNumber = 0;
             while (true) {

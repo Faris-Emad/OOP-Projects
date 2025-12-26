@@ -19,7 +19,7 @@ class clsFindClientScreen : protected clsScreen{
             cout << "Phone      : " << Client.Phone() << endl;
             cout << "Acc.Number : " << Client.AccountNumber() << endl;
             cout << "Password   : " << Client.GetPinCode() << endl;
-            cout << "Balance    : " << Client.GetAccountBalance() << endl;
+            cout << "Balance    : " << Client.AccountBalance() << endl;
         }
         
     public:

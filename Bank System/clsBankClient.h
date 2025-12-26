@@ -16,7 +16,7 @@ private:
     enMode _Mode;
     string _AccountNumber;
     string _PinCode;
-    float _AccountBalance;
+    double _AccountBalance;
     bool _MarkForDelete = false;
     static clsBankClient _ConvertLineToClientObject(string line) {
         vector<string> vClientData = clsString::SplitString(line, SEPARATOR);
@@ -31,7 +31,7 @@ private:
             DataLine += Client.Phone() + SEPARATOR;
             DataLine += Client. AccountNumber() + SEPARATOR;
             DataLine += Client.GetPinCode() + SEPARATOR;
-            DataLine += to_string(Client.GetAccountBalance());
+            DataLine += to_string(Client.AccountBalance());
             return DataLine;
     }
     static clsBankClient _GetEmptyClinetObject() {
@@ -115,7 +115,7 @@ public:
     void SetAccountBalance(float AccountBalance) {
         _AccountBalance = AccountBalance;
     }
-    float GetAccountBalance() {
+    double AccountBalance() {
         return _AccountBalance;
     }
     void SetPinCode(string PinCode) {
@@ -224,5 +224,18 @@ public:
             TotalBalances += Client._AccountBalance;
         }
         return TotalBalances;
+    }
+    void Deposit(double Amount) {
+        _AccountBalance += Amount;    
+        Save();
+    }
+    bool Withdraw(double Amount) {
+        if(Amount > _AccountBalance)
+            return false;
+        else { 
+            _AccountBalance -= Amount;    
+            Save();
+        }
+        return true;
     }
 };

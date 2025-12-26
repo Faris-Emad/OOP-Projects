@@ -38,7 +38,7 @@ class clsClientListScreen: protected clsScreen {
                 cout << "| " << setw(12) << left << client.Phone();
                 cout << "| " << setw(25) << left << client.Email();
                 cout << "| " << setw(10) << left << client.GetPinCode();
-                cout << "| " << setw(12) << left << client.GetAccountBalance();
+                cout << "| " << setw(12) << left << client.AccountBalance();
                 cout << "|\n";
             }
         }

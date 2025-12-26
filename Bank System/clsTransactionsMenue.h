@@ -4,6 +4,8 @@
 #include "clsScreen.h"
 #include "clsInputValidate.h"
 #include "clsMainScreen.h"
+#include "clsDepositScreen.h"
+#include "clsWithdrawScreen.h"
 using namespace std;
 
 class clsTransactionsMenue : protected clsScreen {
@@ -18,16 +20,16 @@ class clsTransactionsMenue : protected clsScreen {
                 return Choice;
             }
             static  void _GoBackToTransactionsMenue() {
-                cout << setw(37) << left << ""<<"\n\tPress any key to go back to Main Menue...\n";
+                cout << setw(37) << left << ""<<"\n\tPress any key to go back to Transactions Menue...\n";
             
                 system("pause>0");
                 ShowTransactionsMenue();
             }
             static void _ShowDepositScreen() {
-               cout << "\nDeposit Screen Will be here...\n";
+               clsDepositScreen::ShowDepsitScreen();
             }
             static void _ShowWithdrawScreen() {
-               cout << "\nWithdraw Screen Will be here...\n";
+               clsWithdrawScreen::ShowWithdrawScreen();
             }
             static void _ShowTotalBalancesScreen() {
                cout << "\nTotal Balances Screen Will be here...\n";
