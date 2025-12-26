@@ -8,6 +8,7 @@
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsTransactionsMenue.h"
+#include "clsManageUsersMenue.h"
 using namespace std;
 
 
@@ -55,7 +56,7 @@ class clsMainScreen:protected clsScreen{
         }
 
         static void _ShowManageUsersMenue() {
-           cout << "\nUsers Menue Will be here...\n";
+           clsManageUsersMenue::ShowTransactionsMenue();
         }
 
         static void _ShowEndScreen() {
