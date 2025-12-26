@@ -1,4 +1,4 @@
-#pragma onec
+#pragma once
 #include <iostream>
 #include "clsUtiliy.h"
 #include "clsScreen.h"
@@ -6,7 +6,8 @@
 #include "clsAddNewClient.h"
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
-
+#include "clsFindClientScreen.h"
+#include "clsTransactionsMenue.h"
 using namespace std;
 
 
@@ -46,11 +47,11 @@ class clsMainScreen:protected clsScreen{
         }
 
         static void _ShowFindClientScreen() {
-           cout << "\nFind Client Screen Will be here...\n";
+           clsFindClientScreen::ShowFindClientScreen();
         }
 
         static void _ShowTransactionsMenue() {
-           cout << "\nTransactions Menue Will be here...\n";
+           clsTransactionsMenue::ShowTransactionsMenue();
         }
 
         static void _ShowManageUsersMenue() {
