@@ -1,0 +1,213 @@
+#pragma once
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include "clsString.h"
+#include "clsPerson.h"
+using namespace std;
+
+
+const string SEPARATOR = "#//#";
+
+class clsUser : public clsPerson  {
+    private:
+        enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
+        enMode _Mode;
+        string _UserName;       // Username
+        string _Password;       // Password
+        int _Permissions = 0; // User permissions (using UserAccess)
+        bool _MarkForDelete = false;  // Flag for deletion
+        static clsUser _ConvertLineToUserObject(string line) {
+            vector<string> vUsersData = clsString::SplitString(line, SEPARATOR);
+            return clsUser(enMode::UpdateMode, vUsersData[0], vUsersData[1], vUsersData[2],
+                vUsersData[3], vUsersData[4], vUsersData[5], stoi(vUsersData[6]));
+        }
+        static string _ConverUserObjectToLine(clsUser User) {
+            string DataLine = "";
+            DataLine += User.FirstName() + SEPARATOR;
+            DataLine += User. LastName() + SEPARATOR;
+            DataLine += User.Email() + SEPARATOR;
+            DataLine += User.Phone() + SEPARATOR;
+            DataLine += User._UserName + SEPARATOR;
+            DataLine += User._Password + SEPARATOR;
+            DataLine += to_string(User._Permissions);
+            return DataLine;
+        }
+        static vector<clsUser>  _LoadUsersDataFromFile() {
+            vector<clsUser> _vUsers;
+            fstream MyFile;
+            MyFile.open("Clients.txt", ios::in);
+            if(MyFile.is_open()) {
+                string Line;
+                while (getline(MyFile, Line)) {
+                    clsUser User = _ConvertLineToUserObject(Line);
+                    _vUsers.push_back(User);
+                }
+                MyFile.close();
+
+            }
+            return _vUsers;
+        }
+        static void _SaveUsersDataToFile(vector<clsUser> _vUsers) {
+            fstream MyFile;
+            MyFile.open("Users.txt", ios::out); // Open file for writing (overwrites existing)
+            string DataLine;
+            if(MyFile.is_open()) {
+                for(clsUser& U : _vUsers) {
+                    if(U._MarkForDelete == false) {
+                    DataLine = _ConverUserObjectToLine(U);
+                    MyFile << DataLine << endl;
+                    }
+
+                }
+                MyFile.close();
+            }
+        }
+        void _Update() {
+            vector<clsUser> _vUsers;
+            _vUsers = _LoadUsersDataFromFile();
+            for(clsUser& U : _vUsers) {
+                if(U._UserName == _UserName){
+                    U = *this;
+                    break;
+                }
+            }
+            _SaveUsersDataToFile(_vUsers);
+        }
+        void _AddNew() {
+            _AddDateLineToFile(_ConverUserObjectToLine(*this));
+        }
+
+        void _AddDateLineToFile(string stDateLine) {
+            fstream MyFile;
+            MyFile.open("Users.txt", ios::out | ios::app); 
+            if(MyFile.is_open()) {
+                MyFile << stDateLine << endl;
+                MyFile.close();
+            }
+        }
+        static clsUser _GetEmptyUserObject() {
+            return clsUser(enMode::EmptyMode, "", "", "", "", "","", 0);
+        }
+    public:
+        clsUser(enMode Mode, string FirstName, string LastName,
+            string Email, string Phone, string UserName, string Password,
+            int Permissions) : clsPerson(FirstName, LastName, Email, Phone) {
+            _Mode = Mode;
+            _UserName = UserName;
+            _Password = Password;
+            _Permissions = Permissions;
+        }
+        bool IsEmpty() {
+            return (_Mode == enMode::EmptyMode);
+        }
+        bool MarkedForDeleted() {
+            return _MarkForDelete;
+        }
+        string GetUserName() {
+            return _UserName;
+        }
+        void SetUserName(string UserName) {
+            _UserName = UserName;
+        }
+        void setPassword(string Password) {
+            _Password = Password;
+        }
+        string GetPassword() {
+            return _Password;
+        }
+        static clsUser Find(string UserName) {
+            vector <clsUser> vUsers;
+            fstream MyFile;
+            MyFile.open("Users.txt", ios::in);
+            if(MyFile.is_open()) {
+            string Line;
+            while (getline(MyFile, Line)) {
+                clsUser User = _ConvertLineToUserObject(Line);
+                if(User._UserName == UserName) {
+                MyFile.close();
+                return User;
+                }
+                vUsers.push_back(User);
+            }
+            MyFile.close();
+
+            }
+            return _GetEmptyUserObject();
+        }
+        static clsUser Find(string UserName, string Password) {
+            vector <clsUser> vUsers;
+            fstream MyFile;
+            MyFile.open("Users.txt", ios::in);
+            if(MyFile.is_open()) {
+            string Line;
+            while (getline(MyFile, Line)) {
+                clsUser User = _ConvertLineToUserObject(Line);
+                if(User._UserName == UserName && User._Password == Password) {
+                MyFile.close();
+                return User;
+                }
+                vUsers.push_back(User);
+            }
+            MyFile.close();
+
+            }
+            return _GetEmptyUserObject();
+        }
+        static bool IsUserExist(string AccountNumber) {
+            clsUser User = clsUser::Find(AccountNumber);
+            return (!User.IsEmpty());
+        }
+        enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildAccountNumberExists = 2};
+        enSaveResults Save() {
+            switch (_Mode) {
+                case enMode::EmptyMode: {
+                    return enSaveResults::svFaildEmptyObject;
+                    break;
+                }
+                case enMode::UpdateMode: {
+                    _Update();
+                    return enSaveResults::svSucceeded;
+                    break;
+                }
+                case enMode::AddNewMode: {
+                    if(clsUser::IsUserExist(_UserName)) {
+                        return enSaveResults::svFaildAccountNumberExists;
+                    }
+                    else {
+                        _AddNew();
+                        _Mode = enMode::UpdateMode;
+                        return enSaveResults::svSucceeded;
+                    }
+                    break;
+                }
+
+                default:   
+                    return enSaveResults::svFaildEmptyObject;
+
+            }
+        }
+        static clsUser GetAddNewUserObject(string UserName) {
+            return clsUser(enMode::AddNewMode, "", "", "","", UserName, "",0);
+        }
+        bool Delete() {
+            vector <clsUser> _vUsers = _LoadUsersDataFromFile();
+            for(clsUser& U : _vUsers) {
+            if (U._UserName == _UserName)
+            {
+                U._MarkForDelete = true;
+                break;
+            }  
+            }
+            _SaveUsersDataToFile(_vUsers);
+            *this = _GetEmptyUserObject();
+            return true;
+        }
+        
+        static vector <clsUser> GetUsersList() {
+            return _LoadUsersDataFromFile();
+        }
+        
+};
+

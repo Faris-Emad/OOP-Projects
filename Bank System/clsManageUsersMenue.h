@@ -36,47 +36,41 @@ class clsManageUsersMenue : protected clsScreen {
         static void _ShowFindUserScreen() {
            cout << "soon";
         }
-        static void _ShowMainMenuScreen() {
-            cout << setw(37) << left << "" << "\nReturning to Main Menu...\n";
-            system("pause>0");
-        }
         static  void _PerfromUserMainMenueOption(enManageUsersMenueOptions ManageUsersMenueOptions) {
             switch(ManageUsersMenueOptions) {
-            case enManageUsersMenueOptions::eListUsers: {
-                system("cls");
-                cout << "\nList Users Screen - Coming Soon...\n";
-                _GoBackToUserMainMenue();
-                break;
-            }
-            case enManageUsersMenueOptions::eAddNewUser: {
-                system("cls");
-                _ShowAddNewUsersScreen();
-                _GoBackToUserMainMenue();
-                break;
-            }
-            case enManageUsersMenueOptions::eDeleteUser: {
-                system("cls");
-                _ShowDeleteUserScreen();
-                _GoBackToUserMainMenue();
-                break;
-            }
-            case enManageUsersMenueOptions::eUpdateUser: {
-                system("cls");
-                _ShowUpdateUserScreen();
-                _GoBackToUserMainMenue();
-                break;
-            }
-            case enManageUsersMenueOptions::eFindUser: {
-                system("cls");
-                _ShowFindUserScreen();
-                _GoBackToUserMainMenue();
-                break;
-            }
-            case enManageUsersMenueOptions::eMainMenu: {
-                system("cls");
-                _ShowMainMenuScreen();
-                break;
-            }
+                case enManageUsersMenueOptions::eListUsers: {
+                    system("cls");
+                    cout << "\nList Users Screen - Coming Soon...\n";
+                    _GoBackToUserMainMenue();
+                    break;
+                }
+                case enManageUsersMenueOptions::eAddNewUser: {
+                    system("cls");
+                    _ShowAddNewUsersScreen();
+                    _GoBackToUserMainMenue();
+                    break;
+                }
+                case enManageUsersMenueOptions::eDeleteUser: {
+                    system("cls");
+                    _ShowDeleteUserScreen();
+                    _GoBackToUserMainMenue();
+                    break;
+                }
+                case enManageUsersMenueOptions::eUpdateUser: {
+                    system("cls");
+                    _ShowUpdateUserScreen();
+                    _GoBackToUserMainMenue();
+                    break;
+                }
+                case enManageUsersMenueOptions::eFindUser: {
+                    system("cls");
+                    _ShowFindUserScreen();
+                    _GoBackToUserMainMenue();
+                    break;
+                }
+                case enManageUsersMenueOptions::eMainMenu: {
+                    
+                }
             }
         }
     public:
