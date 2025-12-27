@@ -3,6 +3,8 @@
 #include <iomanip>
 #include "clsScreen.h"
 #include "clsInputValidate.h"
+#include "clsUsersListScreen.h"
+
 using namespace std;
 
 
@@ -22,6 +24,9 @@ class clsManageUsersMenue : protected clsScreen {
             system("pause>0");
             ShowTransactionsMenue();
         }
+        static void _ShowUsersListScreen() {
+            clsUsersListScreen::ShowUsersList();
+        }
         static void _ShowAddNewUsersScreen() {
             cout << "soon";
         }
@@ -40,7 +45,7 @@ class clsManageUsersMenue : protected clsScreen {
             switch(ManageUsersMenueOptions) {
                 case enManageUsersMenueOptions::eListUsers: {
                     system("cls");
-                    cout << "\nList Users Screen - Coming Soon...\n";
+                    _ShowUsersListScreen();
                     _GoBackToUserMainMenue();
                     break;
                 }

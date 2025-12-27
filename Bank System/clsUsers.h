@@ -8,10 +8,11 @@
 using namespace std;
 
 
-const string SEPARATOR = "#//#";
+
 
 class clsUser : public clsPerson  {
     private:
+        static inline string SEPARATOR = "#//#";
         enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
         enMode _Mode;
         string _UserName;       // Username
@@ -117,6 +118,12 @@ class clsUser : public clsPerson  {
         string GetPassword() {
             return _Password;
         }
+        void setPermissions(int Permissions) {
+            _Permissions = Permissions;
+        }
+        int GetPermissions() {
+            return _Permissions;
+        }
         static clsUser Find(string UserName) {
             vector <clsUser> vUsers;
             fstream MyFile;
@@ -194,11 +201,11 @@ class clsUser : public clsPerson  {
         bool Delete() {
             vector <clsUser> _vUsers = _LoadUsersDataFromFile();
             for(clsUser& U : _vUsers) {
-            if (U._UserName == _UserName)
-            {
-                U._MarkForDelete = true;
-                break;
-            }  
+                if (U._UserName == _UserName)
+                {
+                    U._MarkForDelete = true;
+                    break;
+                }  
             }
             _SaveUsersDataToFile(_vUsers);
             *this = _GetEmptyUserObject();
