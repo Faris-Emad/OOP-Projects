@@ -166,7 +166,7 @@ class clsUser : public clsPerson  {
             clsUser User = clsUser::Find(AccountNumber);
             return (!User.IsEmpty());
         }
-        enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildAccountNumberExists = 2};
+        enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildUserNameExists = 2};
         enSaveResults Save() {
             switch (_Mode) {
                 case enMode::EmptyMode: {
@@ -180,7 +180,7 @@ class clsUser : public clsPerson  {
                 }
                 case enMode::AddNewMode: {
                     if(clsUser::IsUserExist(_UserName)) {
-                        return enSaveResults::svFaildAccountNumberExists;
+                        return enSaveResults::svFaildUserNameExists;
                     }
                     else {
                         _AddNew();
@@ -216,6 +216,7 @@ class clsUser : public clsPerson  {
             return _LoadUsersDataFromFile();
         }
         enum UserAccess {
+            FullAccess = -1,
             ShowClientList = 1,    // View client list
             AddNewClient = 2,      // Add new client
             DeleteClient = 4,      // Delete client
@@ -224,9 +225,5 @@ class clsUser : public clsPerson  {
             Transactions = 32,     // Perform financial transactions
             ManageUsers = 64       // Manage users
         };
-        void AddPermission(UserAccess permission) {
-            _Permissions |= permission;
-        }
-        
 };
 

@@ -45,6 +45,7 @@ class clsInputValidate {
                 return UserNumber;
             }
         }
+        
         static double ReadDblNumber() {
             double UserNumber = 0;
             string messageError = "Error";

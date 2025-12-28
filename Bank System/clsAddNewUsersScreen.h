@@ -6,10 +6,15 @@
 #include "clsInputValidate.h"
 using namespace std;
 
-
-// i have alot of error in ui and logic 1
 class clsAddNewUsersScreen : protected clsScreen {
     private:
+        static char AskYesNo(string question) {
+            char answer;
+            cout << question << " y/n: ";
+            cin >> answer;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return (answer == 'y' || answer == 'Y') ? 'y' : 'n';
+        }
         static void _ReadUserInfo(clsUser& User){
             cout << "\nEnter First Name: ";
             User.SetFirstName(clsInputValidate::ReadString());
@@ -30,53 +35,36 @@ class clsAddNewUsersScreen : protected clsScreen {
             User.SetPassword(clsInputValidate::ReadString());
 
             cout << "\nEnter Permissions: ";
-            char answer = 'n';
-            cout << "Do you want to give full access? y/n ";
-            cin >> answer;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            if (answer == 'y' || answer == 'Y') {
-                User.SetPermissions(-1);
+            User.SetPermissions(_ReadPermissions());
+        }
+        static int _ReadPermissions() {
+            int Permissions = 0;
+            if(AskYesNo("\nDo you want to give full access? y/n? ") == 'y') {
+                return clsUser::UserAccess::FullAccess;
             }
-            else {
-                cout << "\nDo you want to give access to the following? (y/n)\n";
-                char p = 'n';
-                
-                cout << "Show Client List? y/n: ";
-                cin >> p; 
-                
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::ShowClientList); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                
-                cout << "Add New Client? y/n: ";
-                cin >> p; 
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::AddNewClient); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                
-                cout << "Delete Client? y/n: ";
-                cin >> p; 
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::DeleteClient);
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                
-                cout << "Update Client? y/n: ";
-                cin >> p; 
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::UpdateClient);
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                
-                cout << "Find Client? y/n: ";
-                cin >> p; 
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::FindClient);
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                
-                cout << "Transactions? y/n: ";
-                cin >> p; 
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::Transactions);
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                
-                cout << "Manage Users? y/n: ";
-                cin >> p; 
-                if (p == 'y' || p == 'Y') User.AddPermission(clsUser::UserAccess::ManageUsers);
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
+            
+            if (AskYesNo("Show Client List?") == 'y') 
+                Permissions |= clsUser::UserAccess::ShowClientList;
+            
+            if (AskYesNo("Add New Client?") == 'y') 
+                Permissions |= clsUser::UserAccess::AddNewClient;
+            
+            if (AskYesNo("Delete Client?") == 'y') 
+                Permissions |= clsUser::UserAccess::DeleteClient;
+            
+            if (AskYesNo("Update Client?") == 'y') 
+                Permissions |= clsUser::UserAccess::UpdateClient;
+            
+            if (AskYesNo("Find Client?") == 'y') 
+                Permissions |= clsUser::UserAccess::FindClient;
+            
+            if (AskYesNo("Transactions?") == 'y') 
+                Permissions |= clsUser::UserAccess::Transactions;
+            
+            if (AskYesNo("Manage Users?") == 'y') 
+                Permissions |= clsUser::UserAccess::ManageUsers;
+            
+            return Permissions;
         }
         
         static void _PrintUser(clsUser User) {
@@ -117,7 +105,7 @@ class clsAddNewUsersScreen : protected clsScreen {
                     cout << "\nError user was not saved because it's Empty";
                     break;
                 }
-                case clsUser::enSaveResults::svFaildAccountNumberExists:{
+                case clsUser::enSaveResults::svFaildUserNameExists:{
                     cout << "\nError user was not saved because already is Exists";
                     break;
                 }
