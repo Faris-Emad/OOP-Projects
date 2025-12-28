@@ -5,7 +5,7 @@
 #include "clsInputValidate.h"
 #include "clsUsersListScreen.h"
 #include "clsAddNewUsersScreen.h"
-
+#include "clsDeleteUserScreen.h"
 using namespace std;
 
 
@@ -32,7 +32,7 @@ class clsManageUsersMenue : protected clsScreen {
             clsAddNewUsersScreen::AddNewUser();
         }
         static void _ShowDeleteUserScreen() {
-            
+            clsDeleteUserScreen::ShowDeleteUser();
         }
 
         static void _ShowUpdateUserScreen() {
