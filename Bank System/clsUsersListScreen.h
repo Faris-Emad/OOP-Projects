@@ -1,4 +1,4 @@
-#pragma onec
+#pragma once
 #include <iomanip>
 #include <iostream>
 #include "clsScreen.h"
@@ -45,4 +45,3 @@ class clsUsersListScreen : protected clsScreen
             cout << "_______________________________________________________________________________________________________________________\n";
         }
 };
-

@@ -38,7 +38,7 @@ class clsUser : public clsPerson  {
         static vector<clsUser>  _LoadUsersDataFromFile() {
             vector<clsUser> _vUsers;
             fstream MyFile;
-            MyFile.open("Clients.txt", ios::in);
+            MyFile.open("Users.txt", ios::in);
             if(MyFile.is_open()) {
                 string Line;
                 while (getline(MyFile, Line)) {
@@ -112,13 +112,13 @@ class clsUser : public clsPerson  {
         void SetUserName(string UserName) {
             _UserName = UserName;
         }
-        void setPassword(string Password) {
+        void SetPassword(string Password) {
             _Password = Password;
         }
         string GetPassword() {
             return _Password;
         }
-        void setPermissions(int Permissions) {
+        void SetPermissions(int Permissions) {
             _Permissions = Permissions;
         }
         int GetPermissions() {
@@ -214,6 +214,18 @@ class clsUser : public clsPerson  {
         
         static vector <clsUser> GetUsersList() {
             return _LoadUsersDataFromFile();
+        }
+        enum UserAccess {
+            ShowClientList = 1,    // View client list
+            AddNewClient = 2,      // Add new client
+            DeleteClient = 4,      // Delete client
+            UpdateClient = 8,      // Update client information
+            FindClient = 16,       // Find client
+            Transactions = 32,     // Perform financial transactions
+            ManageUsers = 64       // Manage users
+        };
+        void AddPermission(UserAccess permission) {
+            _Permissions |= permission;
         }
         
 };
