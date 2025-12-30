@@ -6,6 +6,8 @@
 #include "clsUsersListScreen.h"
 #include "clsAddNewUsersScreen.h"
 #include "clsDeleteUserScreen.h"
+#include "clsUpdateUserScreen.h"
+#include "clsFindUserScreen.h"
 using namespace std;
 
 
@@ -36,11 +38,11 @@ class clsManageUsersMenue : protected clsScreen {
         }
 
         static void _ShowUpdateUserScreen() {
-           cout << "soon";
+           clsUpdateUserScreen::UpdateUser();
         }
 
         static void _ShowFindUserScreen() {
-           cout << "soon";
+           clsFindUserScreen::ShowFindUserScreen();
         }
         static  void _PerfromUserMainMenueOption(enManageUsersMenueOptions ManageUsersMenueOptions) {
             switch(ManageUsersMenueOptions) {
