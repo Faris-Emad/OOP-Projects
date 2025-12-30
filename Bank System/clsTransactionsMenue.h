@@ -69,6 +69,8 @@ class clsTransactionsMenue : protected clsScreen {
 
     public:
         static void ShowTransactionsMenue() {
+            if(!CheckAccessRights(clsUser::UserAccess::Transactions))
+                return;
             system("cls");
             _DrawScreenHeader("\t\t Transactions Screen");
             cout << setw(37) << left <<""<< "===========================================\n";

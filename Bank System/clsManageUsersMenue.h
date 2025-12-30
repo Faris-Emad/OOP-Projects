@@ -83,6 +83,8 @@ class clsManageUsersMenue : protected clsScreen {
         }
     public:
         static void ShowTransactionsMenue() {
+            if(!CheckAccessRights(clsUser::UserAccess::ManageUsers))
+                return;
             system("cls");
             _DrawScreenHeader("\t\t Manage Users Menu Screen Screen");
             cout << setw(37) << left <<""<< "===========================================\n";

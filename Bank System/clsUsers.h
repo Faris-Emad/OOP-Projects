@@ -229,5 +229,13 @@ class clsUser : public clsPerson  {
             Transactions = 32,     // Perform financial transactions
             ManageUsers = 64       // Manage users
         };
+        bool CheckAccessPermission(UserAccess Permissions) {
+            if(this->_Permissions == UserAccess::FullAccess)
+                return true;
+            if((Permissions & this->_Permissions) == Permissions)
+                return true;
+            else 
+                return false;
+        }
 };
 

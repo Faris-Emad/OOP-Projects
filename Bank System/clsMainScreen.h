@@ -66,6 +66,7 @@ class clsMainScreen:protected clsScreen{
         static  void _PerfromMainMenueOption(enMainMenueOptions MainMenueOption) {
             switch(MainMenueOption) {
                 case enMainMenueOptions::eListClients: {
+                    
                     system("cls");
                     _ShowAllClientsScreen();
                     _GoBackToMainMenue();
