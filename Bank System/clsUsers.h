@@ -170,11 +170,11 @@ class clsUser : public clsPerson  {
             clsUser User = clsUser::Find(UserName, Password);
             return (!User.IsEmpty());
         }
-        enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildUserNameExists = 2};
+        enum enSaveResults {svFailedEmptyObject =0, svSucceeded = 1, svFailedUserNameExists = 2};
         enSaveResults Save() {
             switch (_Mode) {
                 case enMode::EmptyMode: {
-                    return enSaveResults::svFaildEmptyObject;
+                    return enSaveResults::svFailedEmptyObject;
                     break;
                 }
                 case enMode::UpdateMode: {
@@ -184,7 +184,7 @@ class clsUser : public clsPerson  {
                 }
                 case enMode::AddNewMode: {
                     if(clsUser::IsUserExist(_UserName)) {
-                        return enSaveResults::svFaildUserNameExists;
+                        return enSaveResults::svFailedUserNameExists;
                     }
                     else {
                         _AddNew();
@@ -195,7 +195,7 @@ class clsUser : public clsPerson  {
                 }
 
                 default:   
-                    return enSaveResults::svFaildEmptyObject;
+                    return enSaveResults::svFailedEmptyObject;
 
             }
         }

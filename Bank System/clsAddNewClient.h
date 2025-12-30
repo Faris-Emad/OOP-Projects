@@ -32,7 +32,7 @@ private:
 
     static void _PrintClient(clsBankClient Client) {
         cout << "==================================================\n";
-        cout << "              Clinet Card\n";
+        cout << "              Client Card\n";
         cout << "==================================================\n";
         cout << "First Name : " << Client.FirstName() << endl;
         cout << "Last Name  : " << Client.LastName() << endl;
@@ -67,11 +67,11 @@ public:
                 _PrintClient(NewClient);
                 break;
             }
-            case clsBankClient::enSaveResults::svFaildEmptyObject: {
+            case clsBankClient::enSaveResults::svFailedEmptyObject: {
                 cout << "\nError account was not saved because it's Empty";
                 break;
             }
-            case clsBankClient::enSaveResults::svFaildAccountNumberExists:{
+            case clsBankClient::enSaveResults::svFailedAccountNumberExists:{
                 cout << "\nError account was not saved because already is Exists";
                 break;
             }

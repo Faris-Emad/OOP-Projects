@@ -32,7 +32,7 @@ class clsUpdateClientScreen : protected clsScreen {
 
         static void _PrintClient(clsBankClient Client) {
             cout << "==================================================\n";
-            cout << "              Clinet Card\n";
+            cout << "              Client Card\n";
             cout << "==================================================\n";
             cout << "First Name : " << Client.FirstName() << endl;
             cout << "Last Name  : " << Client.LastName() << endl;
@@ -74,7 +74,7 @@ class clsUpdateClientScreen : protected clsScreen {
                     Client1.PrintInfo();
                     break;
                 }
-                case clsBankClient::enSaveResults::svFaildEmptyObject:
+                case clsBankClient::enSaveResults::svFailedEmptyObject:
                 {
                     cout << "\nError account was not saved because it's Empty";
                     break;

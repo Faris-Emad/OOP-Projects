@@ -108,7 +108,7 @@ static char AskYesNo(string question) {
                             _PrintUser(User);
                             break;
                         }
-                        case clsUser::enSaveResults::svFaildEmptyObject: {
+                        case clsUser::enSaveResults::svFailedEmptyObject: {
                             cout << "\nError User was not saved because it's Empty";
                             break;
                         }

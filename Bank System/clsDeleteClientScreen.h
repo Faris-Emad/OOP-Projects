@@ -1,4 +1,4 @@
-#pragma onec
+#pragma once
 #include <iostream>
 #include "clsScreen.h"
 #include "clsBankClient.h"
@@ -11,7 +11,7 @@ class clsDeleteClientScreen : protected clsScreen {
     private:
             static void _PrintClient(clsBankClient Client) {
             cout << "==================================================\n";
-            cout << "              Clinet Card\n";
+            cout << "              Client Card\n";
             cout << "==================================================\n";
             cout << "First Name : " << Client.FirstName() << endl;
             cout << "Last Name  : " << Client.LastName() << endl;

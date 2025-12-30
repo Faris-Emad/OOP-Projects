@@ -101,11 +101,11 @@ class clsAddNewUsersScreen : protected clsScreen {
                     _PrintUser(NewUser);
                     break;
                 }
-                case clsUser::enSaveResults::svFaildEmptyObject: {
+                case clsUser::enSaveResults::svFailedEmptyObject: {
                     cout << "\nError user was not saved because it's Empty";
                     break;
                 }
-                case clsUser::enSaveResults::svFaildUserNameExists:{
+                case clsUser::enSaveResults::svFailedUserNameExists:{
                     cout << "\nError user was not saved because already is Exists";
                     break;
                 }

@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "clsScreen.h"
 #include "clsBankClient.h"
-#include "clsUtiliy.h"
+#include "clsUtility.h"
 using namespace std;
 
 
@@ -41,7 +41,7 @@ class clsTotalBalancesScreen : protected clsScreen
             }
             cout << "_______________________________________________________________________________________________________________________\n";
             cout << "\n\t\t\t\t\t   Total Balances = " << clsBankClient::GetTotalBalances() << endl;
-            cout << "\n\t\t\t"<< clsUtiliy::NumberToText(clsBankClient::GetTotalBalances()) << endl;
+            cout << "\n\t\t\t"<< clsUtility::NumberToText(clsBankClient::GetTotalBalances()) << endl;
         }
 
 };
