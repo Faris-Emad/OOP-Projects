@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "clsScreen.h"
 #include "clsBankClient.h"
-#include "clsUtiliy.h"
+#include "clsUtility.h"
 using namespace std;
 
 

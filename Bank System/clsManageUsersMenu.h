@@ -11,21 +11,21 @@
 using namespace std;
 
 
-class clsManageUsersMenue : protected clsScreen {
+class clsManageUsersMenu : protected clsScreen {
     private:
-        enum enManageUsersMenueOptions {
+        enum enManageUsersMenuOptions {
             eListUsers = 1, eAddNewUser = 2, eDeleteUser = 3,
             eUpdateUser = 4, eFindUser = 5, eMainMenu= 6
         };
-        static short _ReadUserMainMenueOption() {
+        static short _ReadUserMainMenuOption() {
             cout <<setw(37) << left << ""<< "Choose what do you want to do? [1 to 6]? ";
             short Choice = clsInputValidate::ReadIntNumberBetween(1,6,"Enter Number between 1 to 6? ");
             return Choice;
         }
-        static  void _GoBackToUserMainMenue() {
-            cout << setw(37) << left << ""<<"\n\tPress any key to go back to Manage Users Menue...\n";
+        static  void _GoBackToUserMainMenu() {
+            cout << setw(37) << left << ""<<"\n\tPress any key to go back to Manage Users Menu...\n";
             system("pause>0");
-            ShowTransactionsMenue();
+            ShowTransactionsMenu();
         }
         static void _ShowUsersListScreen() {
             clsUsersListScreen::ShowUsersList();
@@ -44,45 +44,45 @@ class clsManageUsersMenue : protected clsScreen {
         static void _ShowFindUserScreen() {
            clsFindUserScreen::ShowFindUserScreen();
         }
-        static  void _PerfromUserMainMenueOption(enManageUsersMenueOptions ManageUsersMenueOptions) {
-            switch(ManageUsersMenueOptions) {
-                case enManageUsersMenueOptions::eListUsers: {
+        static  void _PerfromUserMainMenuOption(enManageUsersMenuOptions ManageUsersMenuOptions) {
+            switch(ManageUsersMenuOptions) {
+                case enManageUsersMenuOptions::eListUsers: {
                     system("cls");
                     _ShowUsersListScreen();
-                    _GoBackToUserMainMenue();
+                    _GoBackToUserMainMenu();
                     break;
                 }
-                case enManageUsersMenueOptions::eAddNewUser: {
+                case enManageUsersMenuOptions::eAddNewUser: {
                     system("cls");
                     _ShowAddNewUsersScreen();
-                    _GoBackToUserMainMenue();
+                    _GoBackToUserMainMenu();
                     break;
                 }
-                case enManageUsersMenueOptions::eDeleteUser: {
+                case enManageUsersMenuOptions::eDeleteUser: {
                     system("cls");
                     _ShowDeleteUserScreen();
-                    _GoBackToUserMainMenue();
+                    _GoBackToUserMainMenu();
                     break;
                 }
-                case enManageUsersMenueOptions::eUpdateUser: {
+                case enManageUsersMenuOptions::eUpdateUser: {
                     system("cls");
                     _ShowUpdateUserScreen();
-                    _GoBackToUserMainMenue();
+                    _GoBackToUserMainMenu();
                     break;
                 }
-                case enManageUsersMenueOptions::eFindUser: {
+                case enManageUsersMenuOptions::eFindUser: {
                     system("cls");
                     _ShowFindUserScreen();
-                    _GoBackToUserMainMenue();
+                    _GoBackToUserMainMenu();
                     break;
                 }
-                case enManageUsersMenueOptions::eMainMenu: {
+                case enManageUsersMenuOptions::eMainMenu: {
                     
                 }
             }
         }
     public:
-        static void ShowTransactionsMenue() {
+        static void ShowTransactionsMenu() {
             if(!CheckAccessRights(clsUser::UserAccess::ManageUsers))
                 return;
             system("cls");
@@ -98,7 +98,7 @@ class clsManageUsersMenue : protected clsScreen {
             cout << setw(37) << left << "" << "\t[6] Main Menu.\n";
             cout << setw(37) << left << "" << "===========================================\n";
 
-            _PerfromUserMainMenueOption((enManageUsersMenueOptions)_ReadUserMainMenueOption());
+            _PerfromUserMainMenuOption((enManageUsersMenuOptions)_ReadUserMainMenuOption());
 
         }
         

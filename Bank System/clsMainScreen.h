@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "clsUtiliy.h"
+#include "clsUtility.h"
 #include "clsScreen.h"
 #include "clsClientListScreen.h"
 #include "clsAddNewClient.h"
@@ -8,7 +8,7 @@
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsTransactionsMenue.h"
-#include "clsManageUsersMenue.h"
+#include "clsManageUsersMenu.h"
 #include "clsLoginScreen.h"
 #include "Global.h"
 using namespace std;
@@ -57,8 +57,8 @@ class clsMainScreen:protected clsScreen{
            clsTransactionsMenue::ShowTransactionsMenue();
         }
 
-        static void _ShowManageUsersMenue() {
-           clsManageUsersMenue::ShowTransactionsMenue();
+        static void _ShowManageUsersMenu() {
+           clsManageUsersMenu::ShowTransactionsMenu();
         }
         static void _Logout() {
             CurrentUser = clsUser::Find("", "");
@@ -104,7 +104,7 @@ class clsMainScreen:protected clsScreen{
                 }
                 case enMainMenueOptions::eManageUsers: {
                     system("cls");
-                    _ShowManageUsersMenue();
+                    _ShowManageUsersMenu();
                     _GoBackToMainMenue();
                     break;
                 }
