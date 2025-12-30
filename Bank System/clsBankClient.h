@@ -168,11 +168,11 @@ public:
         clsBankClient Client = clsBankClient::Find(AccountNumber);
         return (!Client.IsEmpty());
     }
-    enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildAccountNumberExists = 2};
+    enum enSaveResults {svFailedEmptyObject =0, svSucceeded = 1, svFailedAccountNumberExists = 2};
     enSaveResults Save() {
         switch (_Mode) {
             case enMode::EmptyMode: {
-                return enSaveResults::svFaildEmptyObject;
+                return enSaveResults::svFailedEmptyObject;
                 break;
             }
             case enMode::UpdateMode: {
@@ -182,7 +182,7 @@ public:
             }
             case enMode::AddNewMode: {
                 if(clsBankClient::IsClientExist(_AccountNumber)) {
-                    return enSaveResults::svFaildAccountNumberExists;
+                    return enSaveResults::svFailedAccountNumberExists;
                 }
                 else {
                     _AddNew();
@@ -193,7 +193,7 @@ public:
             }
 
             default:   
-                return enSaveResults::svFaildEmptyObject;
+                return enSaveResults::svFailedEmptyObject;
 
         }
     }

@@ -74,7 +74,7 @@ class clsUpdateClientScreen : protected clsScreen {
                     Client1.PrintInfo();
                     break;
                 }
-                case clsBankClient::enSaveResults::svFaildEmptyObject:
+                case clsBankClient::enSaveResults::svFailedEmptyObject:
                 {
                     cout << "\nError account was not saved because it's Empty";
                     break;
