@@ -6,7 +6,7 @@
 #include "clsInputValidate.h"
 
 
-class clsFindClientScreen : protected clsScreen{
+class clsFindClientScreen : protected clsScreen {
     private:
         static void _PrintClient(clsBankClient Client) {
             cout << "==================================================\n";

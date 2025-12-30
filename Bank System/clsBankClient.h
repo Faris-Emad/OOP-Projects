@@ -7,11 +7,12 @@
 #include "clsPerson.h"
 using namespace std;
 
-const string SEPARATOR = "#//#";
+
 
 class clsBankClient : public clsPerson
 {
 private:
+    static inline string SEPARATOR = "#//#";
     enum enMode {EmptyMode = 0, UpdateMode = 1, AddNewMode = 2};
     enMode _Mode;
     string _AccountNumber;

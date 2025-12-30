@@ -25,7 +25,7 @@ class clsInputValidate {
                     (cmpTo != clsDate::enDateCompare::Before && 
                     cmpFrom != clsDate::enDateCompare::After));
         }
-        static int ReadIntNumber(string messageError) {
+        static int ReadIntNumber(string messageError = "Error") {
             int UserNumber = 0;
             while (true) {
                 cin >> UserNumber;
@@ -45,6 +45,7 @@ class clsInputValidate {
                 return UserNumber;
             }
         }
+        
         static double ReadDblNumber() {
             double UserNumber = 0;
             string messageError = "Error";

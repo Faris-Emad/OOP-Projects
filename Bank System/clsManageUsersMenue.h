@@ -3,6 +3,11 @@
 #include <iomanip>
 #include "clsScreen.h"
 #include "clsInputValidate.h"
+#include "clsUsersListScreen.h"
+#include "clsAddNewUsersScreen.h"
+#include "clsDeleteUserScreen.h"
+#include "clsUpdateUserScreen.h"
+#include "clsFindUserScreen.h"
 using namespace std;
 
 
@@ -22,25 +27,28 @@ class clsManageUsersMenue : protected clsScreen {
             system("pause>0");
             ShowTransactionsMenue();
         }
+        static void _ShowUsersListScreen() {
+            clsUsersListScreen::ShowUsersList();
+        }
         static void _ShowAddNewUsersScreen() {
-            cout << "soon";
+            clsAddNewUsersScreen::AddNewUser();
         }
         static void _ShowDeleteUserScreen() {
-            cout << "soon";
+            clsDeleteUserScreen::ShowDeleteUser();
         }
 
         static void _ShowUpdateUserScreen() {
-           cout << "soon";
+           clsUpdateUserScreen::UpdateUser();
         }
 
         static void _ShowFindUserScreen() {
-           cout << "soon";
+           clsFindUserScreen::ShowFindUserScreen();
         }
         static  void _PerfromUserMainMenueOption(enManageUsersMenueOptions ManageUsersMenueOptions) {
             switch(ManageUsersMenueOptions) {
                 case enManageUsersMenueOptions::eListUsers: {
                     system("cls");
-                    cout << "\nList Users Screen - Coming Soon...\n";
+                    _ShowUsersListScreen();
                     _GoBackToUserMainMenue();
                     break;
                 }

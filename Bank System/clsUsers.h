@@ -8,10 +8,11 @@
 using namespace std;
 
 
-const string SEPARATOR = "#//#";
+
 
 class clsUser : public clsPerson  {
     private:
+        static inline string SEPARATOR = "#//#";
         enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
         enMode _Mode;
         string _UserName;       // Username
@@ -37,7 +38,7 @@ class clsUser : public clsPerson  {
         static vector<clsUser>  _LoadUsersDataFromFile() {
             vector<clsUser> _vUsers;
             fstream MyFile;
-            MyFile.open("Clients.txt", ios::in);
+            MyFile.open("Users.txt", ios::in);
             if(MyFile.is_open()) {
                 string Line;
                 while (getline(MyFile, Line)) {
@@ -111,11 +112,17 @@ class clsUser : public clsPerson  {
         void SetUserName(string UserName) {
             _UserName = UserName;
         }
-        void setPassword(string Password) {
+        void SetPassword(string Password) {
             _Password = Password;
         }
         string GetPassword() {
             return _Password;
+        }
+        void SetPermissions(int Permissions) {
+            _Permissions = Permissions;
+        }
+        int GetPermissions() {
+            return _Permissions;
         }
         static clsUser Find(string UserName) {
             vector <clsUser> vUsers;
@@ -159,7 +166,7 @@ class clsUser : public clsPerson  {
             clsUser User = clsUser::Find(AccountNumber);
             return (!User.IsEmpty());
         }
-        enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildAccountNumberExists = 2};
+        enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildUserNameExists = 2};
         enSaveResults Save() {
             switch (_Mode) {
                 case enMode::EmptyMode: {
@@ -173,7 +180,7 @@ class clsUser : public clsPerson  {
                 }
                 case enMode::AddNewMode: {
                     if(clsUser::IsUserExist(_UserName)) {
-                        return enSaveResults::svFaildAccountNumberExists;
+                        return enSaveResults::svFaildUserNameExists;
                     }
                     else {
                         _AddNew();
@@ -194,11 +201,11 @@ class clsUser : public clsPerson  {
         bool Delete() {
             vector <clsUser> _vUsers = _LoadUsersDataFromFile();
             for(clsUser& U : _vUsers) {
-            if (U._UserName == _UserName)
-            {
-                U._MarkForDelete = true;
-                break;
-            }  
+                if (U._UserName == _UserName)
+                {
+                    U._MarkForDelete = true;
+                    break;
+                }  
             }
             _SaveUsersDataToFile(_vUsers);
             *this = _GetEmptyUserObject();
@@ -208,6 +215,15 @@ class clsUser : public clsPerson  {
         static vector <clsUser> GetUsersList() {
             return _LoadUsersDataFromFile();
         }
-        
+        enum UserAccess {
+            FullAccess = -1,
+            ShowClientList = 1,    // View client list
+            AddNewClient = 2,      // Add new client
+            DeleteClient = 4,      // Delete client
+            UpdateClient = 8,      // Update client information
+            FindClient = 16,       // Find client
+            Transactions = 32,     // Perform financial transactions
+            ManageUsers = 64       // Manage users
+        };
 };
 
