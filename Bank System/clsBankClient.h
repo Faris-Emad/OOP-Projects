@@ -35,7 +35,7 @@ private:
             DataLine += to_string(Client.AccountBalance());
             return DataLine;
     }
-    static clsBankClient _GetEmptyClinetObject() {
+    static clsBankClient _GetEmptyClientObject() {
         return clsBankClient(enMode::EmptyMode, "", "", "", "", "","", 0);
     }
 
@@ -46,8 +46,8 @@ private:
         if(MyFile.is_open()) {
             string Line;
             while (getline(MyFile, Line)) {
-                clsBankClient Clinet = _ConvertLineToClientObject(Line);
-                _vClients.push_back(Clinet);
+                clsBankClient Client = _ConvertLineToClientObject(Line);
+                _vClients.push_back(Client);
             }
             MyFile.close();
 
@@ -127,42 +127,42 @@ public:
     }
     
     static clsBankClient Find(string AccountNumber) {
-        vector <clsBankClient> vClinet;
+        vector <clsBankClient> vClient;
         fstream MyFile;
         MyFile.open("Clients.txt", ios::in);
         if(MyFile.is_open()) {
             string Line;
             while (getline(MyFile, Line)) {
-                clsBankClient Clinet = _ConvertLineToClientObject(Line);
-                if(Clinet.AccountNumber() == AccountNumber) {
+                clsBankClient Client = _ConvertLineToClientObject(Line);
+                if(Client.AccountNumber() == AccountNumber) {
                     MyFile.close();
-                    return Clinet;
+                    return Client;
                 }
-                vClinet.push_back(Clinet);
+                vClient.push_back(Client);
             }
             MyFile.close();
 
         }
-        return _GetEmptyClinetObject();
+        return _GetEmptyClientObject();
     }
     static clsBankClient Find(string AccountNumber, string PinCode) {
-        vector <clsBankClient> vClinet;
+        vector <clsBankClient> vClient;
         fstream MyFile;
         MyFile.open("Clients.txt", ios::in);
         if(MyFile.is_open()) {
             string Line;
             while (getline(MyFile, Line)) {
-                clsBankClient Clinet = _ConvertLineToClientObject(Line);
-                if(Clinet.AccountNumber() == AccountNumber && Clinet._PinCode == PinCode) {
+                clsBankClient Client = _ConvertLineToClientObject(Line);
+                if(Client.AccountNumber() == AccountNumber && Client._PinCode == PinCode) {
                     MyFile.close();
-                    return Clinet;
+                    return Client;
                 }
-                vClinet.push_back(Clinet);
+                vClient.push_back(Client);
             }
             MyFile.close();
 
         }
-        return _GetEmptyClinetObject();
+        return _GetEmptyClientObject();
     }
     static bool IsClientExist(string AccountNumber) {
         clsBankClient Client = clsBankClient::Find(AccountNumber);
@@ -211,7 +211,7 @@ public:
             }  
         }
         _SaveClientsDataToFile(_Clients);
-        *this = _GetEmptyClinetObject();
+        *this = _GetEmptyClientObject();
         return true;
     }
 
