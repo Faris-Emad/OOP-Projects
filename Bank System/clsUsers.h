@@ -162,8 +162,12 @@ class clsUser : public clsPerson  {
             }
             return _GetEmptyUserObject();
         }
-        static bool IsUserExist(string AccountNumber) {
-            clsUser User = clsUser::Find(AccountNumber);
+        static bool IsUserExist(string UserName) {
+            clsUser User = clsUser::Find(UserName);
+            return (!User.IsEmpty());
+        }
+        static bool IsUserExist(string UserName, string Password) {
+            clsUser User = clsUser::Find(UserName, Password);
             return (!User.IsEmpty());
         }
         enum enSaveResults {svFaildEmptyObject =0, svSucceeded = 1, svFaildUserNameExists = 2};
