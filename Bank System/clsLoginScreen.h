@@ -36,9 +36,6 @@ class clsLoginScreen : protected clsScreen
             system("cls");
             _DrawScreenHeader(" Login Screen ");
             _Login();
-            
-            
-            
         }
 
 };
