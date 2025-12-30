@@ -26,7 +26,7 @@
 
 using namespace std;
 
-class clsUtiliy
+class clsUtility
 {
    
 public:
