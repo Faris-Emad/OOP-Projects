@@ -12,13 +12,20 @@ using namespace std;
 class clsLoginScreen : protected clsScreen
 {
     private:
-        static void _Login() {
+        static bool _Login() {
             bool LoginFaild = false;
+            short FaildLoginCount = 0;
             string UserName = "" , Password = "";
             do
             {
                 if(LoginFaild) {
+                    FaildLoginCount++;
                     cout << "\nInvlaid User Name / Password!!\n\n";
+                    cout << "you have " << (3-FaildLoginCount) << " Trials to login\n";
+                }
+                if(FaildLoginCount == 3) {
+                    cout << "\nYour are Locked after 3 faild trails\n\n";
+                    return false;
                 }
                 cout << "Enter User Name: ";
                 UserName = clsInputValidate::ReadString();
@@ -28,16 +35,14 @@ class clsLoginScreen : protected clsScreen
                 LoginFaild = CurrentUser.IsEmpty();
             } while (LoginFaild);
             clsMainScreen::ShowMainMenu();
-        }   
-
-        
-    public:
-        static void ShowLoginScreen() {
-            system("cls");
-            _DrawScreenHeader(" Login Screen ");
-            _Login();
+            return true;
         }
 
+
+    public:
+        static bool ShowLoginScreen() {
+            system("cls");
+            _DrawScreenHeader(" Login Screen ");
+            return _Login();
+        }
 };
-
-
