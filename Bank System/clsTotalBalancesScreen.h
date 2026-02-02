@@ -16,7 +16,9 @@ class clsTotalBalancesScreen : protected clsScreen
             _DrawScreenHeader("Total Balances Screen");
             vector <clsBankClient> vClients = clsBankClient::GetClientsList();
             
-            cout << "\n\t\t\t\t\tBalances List (" << vClients.size() << ") Client(s).\n";
+            string Title = "\t Total Balances Screen";
+            string SubTitle = "\t (" + to_string(vClients.size()) + ") Client(s)."; 
+            _DrawScreenHeader(Title, SubTitle);
             cout << "\n_______________________________________________________________________________________________________________________\n";
             
             // Print table header
