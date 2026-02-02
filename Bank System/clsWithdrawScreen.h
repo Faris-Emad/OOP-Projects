@@ -24,7 +24,7 @@ class clsWithdrawScreen : protected clsScreen
         }
     public:
        static void ShowWithdrawScreen() {
-            _DrawScreenHeader("Deposit Screen");
+            _DrawScreenHeader("Withdraw Screen");
             cout << "Enter Account Number:";
             string AccountNumber = clsInputValidate::ReadString();
             while (!clsBankClient::IsClientExist(AccountNumber)) {
