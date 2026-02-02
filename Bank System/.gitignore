@@ -10,6 +10,8 @@
 *.obj
 *.lib
 *.exp
+build/
+bank_system
 
 # Swap files
 *.swp
