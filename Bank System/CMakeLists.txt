@@ -33,4 +33,5 @@ add_executable(Bank_System
         clsUtility.h
         clsWithdrawScreen.h
         Global.h
-        main.cpp)
+        main.cpp
+        clsLoginRegister.h)

@@ -5,6 +5,7 @@
 #include <vector>
 #include "clsString.h"
 #include "clsPerson.h"
+#include  "clsDate.h"
 using namespace std;
 
 
@@ -12,18 +13,20 @@ using namespace std;
 
 class clsUser : public clsPerson  {
     private:
-        static inline string SEPARATOR = "#//#";
+        inline  static const string SEPARATOR = "#//#";
         enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
         enMode _Mode;
         string _UserName;       // Username
         string _Password;       // Password
         int _Permissions = 0; // User permissions (using UserAccess)
         bool _MarkForDelete = false;  // Flag for deletion
+
         static clsUser _ConvertLineToUserObject(string line) {
             vector<string> vUsersData = clsString::SplitString(line, SEPARATOR);
             return clsUser(enMode::UpdateMode, vUsersData[0], vUsersData[1], vUsersData[2],
                 vUsersData[3], vUsersData[4], vUsersData[5], stoi(vUsersData[6]));
         }
+
         static string _ConverUserObjectToLine(clsUser User) {
             string DataLine = "";
             DataLine += User.FirstName() + SEPARATOR;
@@ -50,9 +53,12 @@ class clsUser : public clsPerson  {
             }
             return _vUsers;
         }
+
+
+
         static void _SaveUsersDataToFile(vector<clsUser> _vUsers) {
             fstream MyFile;
-            MyFile.open("Users.txt", ios::out); // Open file for writing (overwrites existing)
+            MyFile.open("LoginRegister.txt", ios::out); // Open file for writing (overwrites existing)
             string DataLine;
             if(MyFile.is_open()) {
                 for(clsUser& U : _vUsers) {
@@ -91,6 +97,15 @@ class clsUser : public clsPerson  {
         static clsUser _GetEmptyUserObject() {
             return clsUser(enMode::EmptyMode, "", "", "", "", "","", 0);
         }
+        string _PrepareLogInRecord( ) {
+                string LoginRecord = "";
+                LoginRecord += clsDate::GetSystemDateTimeString() + SEPARATOR;
+                LoginRecord += _UserName + SEPARATOR;
+                LoginRecord += _Password + SEPARATOR;
+                LoginRecord += to_string(_Permissions);
+                return LoginRecord;
+        }
+
     public:
         clsUser(enMode Mode, string FirstName, string LastName,
             string Email, string Phone, string UserName, string Password,
@@ -237,5 +252,61 @@ class clsUser : public clsPerson  {
             else 
                 return false;
         }
+
+        void RegisterLogin() {
+            string stDateLine = _PrepareLogInRecord();
+            fstream MyFile;
+            MyFile.open("LoginRegister.txt", ios::out | ios::app);
+            if(MyFile.is_open()) {
+                MyFile << stDateLine << endl;
+                MyFile.close();
+            }
+        }
+        struct UserLoginData {
+            string DateTime;
+            string UserName;
+            string Password;
+            string Permissions;
+        };
+
+        static vector <UserLoginData> GetUsersLoginList() {
+            vector <UserLoginData> vUsersLoginData =  _LoadUsersLoginDataFromFile();
+            for(UserLoginData& U : vUsersLoginData) {
+                UserLoginData ULoginData;
+                ULoginData.DateTime = clsDate::GetSystemDateTimeString();
+                ULoginData.UserName = U.UserName;
+                ULoginData.Password = U.Password;
+                ULoginData.Permissions = U.Permissions;
+                vUsersLoginData.push_back(ULoginData);
+            }
+            return vUsersLoginData;
+        }
+
+        static UserLoginData _ConvertLineToUserSturct(string line) {
+            vector<string> vUsersData = clsString::SplitString(line, SEPARATOR);
+            UserLoginData loginData;
+            loginData.DateTime = clsDate::GetSystemDateTimeString();
+            loginData.UserName = vUsersData[4];
+            loginData.Password = vUsersData[5];
+            loginData.Permissions = vUsersData[6];
+            return loginData;
+        }
+
+        static vector<UserLoginData> _LoadUsersLoginDataFromFile() {
+            vector<UserLoginData> _vUsers;
+            fstream MyFile;
+            MyFile.open("LoginRegister.txt", ios::in);
+            if(MyFile.is_open()) {
+                string Line;
+                while (getline(MyFile, Line)) {
+                    UserLoginData User = _ConvertLineToUserSturct(Line);
+                    _vUsers.push_back(User);
+                }
+                MyFile.close();
+
+            }
+            return _vUsers;
+        }
+
 };
 
