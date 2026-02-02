@@ -13,6 +13,7 @@ class clsTotalBalancesScreen : protected clsScreen
         
     public:
         static void ShowTotalBalances() {
+            _DrawScreenHeader("Total Balances Screen");
             vector <clsBankClient> vClients = clsBankClient::GetClientsList();
             
             cout << "\n\t\t\t\t\tBalances List (" << vClients.size() << ") Client(s).\n";

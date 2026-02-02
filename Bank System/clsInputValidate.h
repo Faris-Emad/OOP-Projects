@@ -156,5 +156,12 @@ class clsInputValidate {
         {
             return	Date.IsValidDate();
         }
+        static char AskYesNo(string question) {
+            char answer;
+            cout << question << " y/n: ";
+            cin >> answer;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return (answer == 'y' || answer == 'Y') ? 'y' : 'n';
+        }
 
 };

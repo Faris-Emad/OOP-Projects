@@ -168,6 +168,10 @@ public:
         clsBankClient Client = clsBankClient::Find(AccountNumber);
         return (!Client.IsEmpty());
     }
+    static bool IsClientExist(string AccountNumber, string PinCode) {
+        clsBankClient Client = clsBankClient::Find(AccountNumber, PinCode);
+        return (!Client.IsEmpty());
+    }
     enum enSaveResults {svFailedEmptyObject =0, svSucceeded = 1, svFailedAccountNumberExists = 2};
     enSaveResults Save() {
         switch (_Mode) {
@@ -238,5 +242,13 @@ public:
             Save();
         }
         return true;
+    }
+    
+    void PrintCard() {
+        cout << "\n==================================================\n";
+        cout << "Full Name       : " << FullName() << endl; 
+        cout << "Account Number  : " << AccountNumber() << endl;
+        cout << "Account Balacne : " << AccountBalance() << endl;
+        cout << "==================================================\n";
     }
 };

@@ -2,22 +2,24 @@
 #include <iostream>
 #include <iomanip>
 #include "clsScreen.h"
-#include "clsInputValidate.h"
 #include "clsMainScreen.h"
+#include "clsInputValidate.h"
 #include "clsDepositScreen.h"
+#include "clsTransferScreen.h"
 #include "clsWithdrawScreen.h"
 #include "clsTotalBalancesScreen.h"
+
 using namespace std;
 
 class clsTransactionsMenue : protected clsScreen {
     private:
             enum enTransactionsMenueOptions {
                 eDeposit = 1, eWithdraw = 2, eTotalBalances = 3,
-                eMainMenu= 4
+                eTransfer = 4  ,eMainMenu= 5
             };
             static short _ReadTransactionsMenueOption() {
-                cout <<setw(37) << left << ""<< "Choose what do you want to do? [1 to 4]? ";
-                short Choice = clsInputValidate::ReadIntNumberBetween(1,4,"Enter Number between 1 to 4? ");
+                cout <<setw(37) << left << ""<< "Choose what do you want to do? [1 to 5]? ";
+                short Choice = clsInputValidate::ReadIntNumberBetween(1,5,"Enter Number between 1 to 5? ");
                 return Choice;
             }
             static  void _GoBackToTransactionsMenue() {
@@ -34,6 +36,9 @@ class clsTransactionsMenue : protected clsScreen {
             }
             static void _ShowTotalBalancesScreen() {
                clsTotalBalancesScreen::ShowTotalBalances();
+            }
+            static void _ShowTransferScreen() {
+               clsTransferScreen::ShowTransfer();
             }
             static void _ShowMainMenuScreen() {
                 cout << setw(37) << left << "" << "\nReturning to Main Menu...\n";
@@ -59,6 +64,12 @@ class clsTransactionsMenue : protected clsScreen {
                         _GoBackToTransactionsMenue();
                         break;
                     }
+                    case enTransactionsMenueOptions::eTransfer: {
+                        system("cls");
+                        _ShowTransferScreen();
+                        _GoBackToTransactionsMenue();
+                        break;
+                    }
                     case enTransactionsMenueOptions::eMainMenu: {
                         system("cls");
                         _ShowMainMenuScreen();
@@ -79,7 +90,8 @@ class clsTransactionsMenue : protected clsScreen {
             cout << setw(37) << left << "" << "\t[1] Deposit.\n";
             cout << setw(37) << left << "" << "\t[2] Withdraw.\n";
             cout << setw(37) << left << "" << "\t[3] Total Balances.\n";
-            cout << setw(37) << left << "" << "\t[4] Main Menu.\n";
+            cout << setw(37) << left << "" << "\t[4] Transfer.\n";
+            cout << setw(37) << left << "" << "\t[5] Main Menu.\n";
             cout << setw(37) << left << "" << "===========================================\n";
 
             _PerfromTransactionsMenueOption((enTransactionsMenueOptions)_ReadTransactionsMenueOption());
