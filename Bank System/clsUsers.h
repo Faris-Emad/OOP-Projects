@@ -58,7 +58,7 @@ class clsUser : public clsPerson  {
 
         static void _SaveUsersDataToFile(vector<clsUser> _vUsers) {
             fstream MyFile;
-            MyFile.open("LoginRegister.txt", ios::out); // Open file for writing (overwrites existing)
+            MyFile.open("Users.txt", ios::out); // Open file for writing (overwrites existing)
             string DataLine;
             if(MyFile.is_open()) {
                 for(clsUser& U : _vUsers) {
@@ -140,40 +140,37 @@ class clsUser : public clsPerson  {
             return _Permissions;
         }
         static clsUser Find(string UserName) {
-            vector <clsUser> vUsers;
             fstream MyFile;
             MyFile.open("Users.txt", ios::in);
+            
             if(MyFile.is_open()) {
-            string Line;
-            while (getline(MyFile, Line)) {
-                clsUser User = _ConvertLineToUserObject(Line);
-                if(User._UserName == UserName) {
-                MyFile.close();
-                return User;
+                string Line;
+                while (getline(MyFile, Line)) {
+                    clsUser User = _ConvertLineToUserObject(Line);
+                    if(User._UserName == UserName) {
+                        MyFile.close();
+                        return User;
+                    }
                 }
-                vUsers.push_back(User);
-            }
-            MyFile.close();
-
+                MyFile.close();
             }
             return _GetEmptyUserObject();
         }
+
         static clsUser Find(string UserName, string Password) {
-            vector <clsUser> vUsers;
             fstream MyFile;
             MyFile.open("Users.txt", ios::in);
+            
             if(MyFile.is_open()) {
-            string Line;
-            while (getline(MyFile, Line)) {
-                clsUser User = _ConvertLineToUserObject(Line);
-                if(User._UserName == UserName && User._Password == Password) {
-                MyFile.close();
-                return User;
+                string Line;
+                while (getline(MyFile, Line)) {
+                    clsUser User = _ConvertLineToUserObject(Line);
+                    if(User._UserName == UserName && User._Password == Password) {
+                        MyFile.close();
+                        return User;
+                    }
                 }
-                vUsers.push_back(User);
-            }
-            MyFile.close();
-
+                MyFile.close();
             }
             return _GetEmptyUserObject();
         }
@@ -242,7 +239,8 @@ class clsUser : public clsPerson  {
             UpdateClient = 8,      // Update client information
             FindClient = 16,       // Find client
             Transactions = 32,     // Perform financial transactions
-            ManageUsers = 64       // Manage users
+            ManageUsers = 64 ,      // Manage users
+            LoginRegister = 128
         };
         bool CheckAccessPermission(UserAccess Permissions) {
             if(this->_Permissions == UserAccess::FullAccess)
@@ -266,29 +264,18 @@ class clsUser : public clsPerson  {
             string DateTime;
             string UserName;
             string Password;
-            string Permissions;
+            int Permissions;
         };
 
-        static vector <UserLoginData> GetUsersLoginList() {
-            vector <UserLoginData> vUsersLoginData =  _LoadUsersLoginDataFromFile();
-            for(UserLoginData& U : vUsersLoginData) {
-                UserLoginData ULoginData;
-                ULoginData.DateTime = clsDate::GetSystemDateTimeString();
-                ULoginData.UserName = U.UserName;
-                ULoginData.Password = U.Password;
-                ULoginData.Permissions = U.Permissions;
-                vUsersLoginData.push_back(ULoginData);
-            }
-            return vUsersLoginData;
-        }
+
 
         static UserLoginData _ConvertLineToUserSturct(string line) {
             vector<string> vUsersData = clsString::SplitString(line, SEPARATOR);
             UserLoginData loginData;
-            loginData.DateTime = clsDate::GetSystemDateTimeString();
-            loginData.UserName = vUsersData[4];
-            loginData.Password = vUsersData[5];
-            loginData.Permissions = vUsersData[6];
+            loginData.DateTime = vUsersData[0];
+            loginData.UserName = vUsersData[1];
+            loginData.Password = vUsersData[2];
+            loginData.Permissions = stoi(vUsersData[3]);
             return loginData;
         }
 
@@ -297,7 +284,7 @@ class clsUser : public clsPerson  {
             fstream MyFile;
             MyFile.open("LoginRegister.txt", ios::in);
             if(MyFile.is_open()) {
-                string Line;
+                string Line; 
                 while (getline(MyFile, Line)) {
                     UserLoginData User = _ConvertLineToUserSturct(Line);
                     _vUsers.push_back(User);
@@ -306,6 +293,9 @@ class clsUser : public clsPerson  {
 
             }
             return _vUsers;
+        }
+        static vector <UserLoginData> GetUsersLoginList() {
+            return  _LoadUsersLoginDataFromFile();;
         }
 
 };
