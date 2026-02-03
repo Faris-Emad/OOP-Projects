@@ -5,6 +5,7 @@
 #include <vector>
 #include "clsString.h"
 #include "clsPerson.h"
+#include "Global.h"
 using namespace std;
 
 
@@ -94,7 +95,29 @@ private:
             MyFile.close();
         }
     }
-
+    static  string _PrepareLogInRecord(string SourceAccount, string DestAccount, double Amount,     double SourceBalanceAfter,
+        double DestBalanceAfter, string Username) {
+        string LogRecord = "";
+        LogRecord += clsDate::GetSystemDateTimeString() + SEPARATOR;
+        LogRecord += SourceAccount + SEPARATOR;
+        LogRecord += DestAccount + SEPARATOR;
+        LogRecord += to_string(Amount) + SEPARATOR;
+        LogRecord += to_string(SourceBalanceAfter) + SEPARATOR;
+        LogRecord += to_string(DestBalanceAfter) + SEPARATOR;
+        LogRecord += Username;
+        return LogRecord;
+    }
+    void _SaveTransferLog(string SourceAccount, string DestAccount, double Amount,     double SourceBalanceAfter,
+        double DestBalanceAfter, string Username){
+        string stDataLine = _PrepareLogInRecord(SourceAccount, DestAccount, Amount, 
+                SourceBalanceAfter, DestBalanceAfter, Username);
+        fstream MyFile;
+        MyFile.open("TransferLogs.txt", ios::out | ios::app);
+        if(MyFile.is_open()) {
+            MyFile << stDataLine << endl;
+            MyFile.close();
+        }
+    }
 
 
 public:
@@ -243,11 +266,13 @@ public:
         }
         return true;
     }
-    bool Transfer(float Amount, clsBankClient& DestinationClient) {
+    bool Transfer(float Amount, clsBankClient& DestinationClient, string UserName) {
         if(Amount > AccountBalance())
             return false;
         Withdraw(Amount);
         DestinationClient.Deposit(Amount);
+        _SaveTransferLog(this->AccountNumber(), DestinationClient.AccountNumber(), Amount, 
+                    this->AccountBalance(), DestinationClient.AccountBalance(), UserName);
         return true;
     }
     
@@ -258,4 +283,44 @@ public:
         cout << "Account Balacne : " << AccountBalance() << endl;
         cout << "==================================================\n";
     }
+    struct stTransferLog {
+        string DateTime;
+        string SourceAccount;
+        string DestinationAccount;
+        double Amount;
+        double SourceBalanceAfter;
+        double DestBalanceAfter;
+        string Username;  
+    };
+    static stTransferLog _ConvertLineToSturct(string line) {
+        vector<string> vTransfersData = clsString::SplitString(line, SEPARATOR);
+        stTransferLog TransferData;
+        TransferData.DateTime = vTransfersData[0];
+        TransferData.SourceAccount = vTransfersData[1];
+        TransferData.DestinationAccount = vTransfersData[2];
+        TransferData.Amount = stod(vTransfersData[3]);
+        TransferData.SourceBalanceAfter = stod(vTransfersData[4]);
+        TransferData.DestBalanceAfter = stod(vTransfersData[5]);
+        TransferData.Username = vTransfersData[6];
+        return TransferData;
+    }
+    static vector<stTransferLog> _LoadTransferLoginDataFromFile() {
+        vector<stTransferLog> vTransfersData;
+        fstream MyFile;
+        MyFile.open("TransferLogs.txt", ios::in);
+        if(MyFile.is_open()) {
+            string Line; 
+            while (getline(MyFile, Line)) {
+                stTransferLog Data = _ConvertLineToSturct(Line);
+                vTransfersData.push_back(Data);
+            }
+            MyFile.close();
+        }
+        return vTransfersData;
+    }
+    static vector <stTransferLog> GetTransferLoginList() {
+        return  _LoadTransferLoginDataFromFile();
+    }
+
+           
 };

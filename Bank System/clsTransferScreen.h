@@ -86,7 +86,7 @@ class clsTransferScreen : protected clsScreen {
                 << " to " << Recipient.FullName() << endl;
                 
             if(clsInputValidate::AskYesNo("Are You Sure?") == 'y') {
-                if(Sender.Transfer(Amount, Recipient)) {
+                if(Sender.Transfer(Amount, Recipient, CurrentUser.GetUserName())) {
                     cout << "\nTransfer completed successfully!\n\n";
                     Sender.PrintCard();
                     Recipient.PrintCard();

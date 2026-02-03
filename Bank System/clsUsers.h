@@ -295,7 +295,7 @@ class clsUser : public clsPerson  {
             return _vUsers;
         }
         static vector <UserLoginData> GetUsersLoginList() {
-            return  _LoadUsersLoginDataFromFile();;
+            return  _LoadUsersLoginDataFromFile();
         }
 
 };
