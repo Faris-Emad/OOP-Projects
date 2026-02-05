@@ -5,7 +5,8 @@
 #include <vector>
 #include "clsString.h"
 #include "clsPerson.h"
-#include  "clsDate.h"
+#include "clsDate.h"
+#include "clsUtility.h"
 using namespace std;
 
 
@@ -13,6 +14,8 @@ using namespace std;
 
 class clsUser : public clsPerson  {
     private:
+        inline  static const string LoginRegisterFile = "LoginRegister.txt";
+        inline  static const string UserFile = "Users.txt";
         inline  static const string SEPARATOR = "#//#";
         enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
         enMode _Mode;
@@ -26,6 +29,8 @@ class clsUser : public clsPerson  {
             return clsUser(enMode::UpdateMode, vUsersData[0], vUsersData[1], vUsersData[2],
                 vUsersData[3], vUsersData[4], vUsersData[5], stoi(vUsersData[6]));
         }
+
+
 
         static string _ConverUserObjectToLine(clsUser User) {
             string DataLine = "";
@@ -41,10 +46,11 @@ class clsUser : public clsPerson  {
         static vector<clsUser>  _LoadUsersDataFromFile() {
             vector<clsUser> _vUsers;
             fstream MyFile;
-            MyFile.open("Users.txt", ios::in);
+            MyFile.open(UserFile, ios::in);
             if(MyFile.is_open()) {
                 string Line;
                 while (getline(MyFile, Line)) {
+
                     clsUser User = _ConvertLineToUserObject(Line);
                     _vUsers.push_back(User);
                 }
@@ -54,17 +60,21 @@ class clsUser : public clsPerson  {
             return _vUsers;
         }
 
+        static void EncryptFile() {
+            
+        }
+
 
 
         static void _SaveUsersDataToFile(vector<clsUser> _vUsers) {
             fstream MyFile;
-            MyFile.open("Users.txt", ios::out); // Open file for writing (overwrites existing)
+            MyFile.open(UserFile, ios::out); // Open file for writing (overwrites existing)
             string DataLine;
             if(MyFile.is_open()) {
                 for(clsUser& U : _vUsers) {
                     if(U._MarkForDelete == false) {
-                    DataLine = _ConverUserObjectToLine(U);
-                    MyFile << DataLine << endl;
+                        DataLine = _ConverUserObjectToLine(U);
+                        MyFile << DataLine << endl;
                     }
 
                 }
@@ -88,7 +98,7 @@ class clsUser : public clsPerson  {
 
         void _AddDateLineToFile(string stDateLine) {
             fstream MyFile;
-            MyFile.open("Users.txt", ios::out | ios::app); 
+            MyFile.open(UserFile, ios::out | ios::app); 
             if(MyFile.is_open()) {
                 MyFile << stDateLine << endl;
                 MyFile.close();
@@ -141,7 +151,7 @@ class clsUser : public clsPerson  {
         }
         static clsUser Find(string UserName) {
             fstream MyFile;
-            MyFile.open("Users.txt", ios::in);
+            MyFile.open(UserFile, ios::in);
             
             if(MyFile.is_open()) {
                 string Line;
@@ -159,7 +169,7 @@ class clsUser : public clsPerson  {
 
         static clsUser Find(string UserName, string Password) {
             fstream MyFile;
-            MyFile.open("Users.txt", ios::in);
+            MyFile.open(UserFile, ios::in);
             
             if(MyFile.is_open()) {
                 string Line;
@@ -282,7 +292,7 @@ class clsUser : public clsPerson  {
         static vector<UserLoginData> _LoadUsersLoginDataFromFile() {
             vector<UserLoginData> _vUsers;
             fstream MyFile;
-            MyFile.open("LoginRegister.txt", ios::in);
+            MyFile.open(, ios::in);
             if(MyFile.is_open()) {
                 string Line; 
                 while (getline(MyFile, Line)) {
