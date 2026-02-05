@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
+#include "interfaceCommunication.h"
 using namespace std;
 
 
-class clsPerson {
+class clsPerson : public InterfaceCommunication {
     private:
         string _ID;
         string _FirstName; 
