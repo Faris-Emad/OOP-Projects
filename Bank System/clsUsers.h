@@ -27,7 +27,7 @@ class clsUser : public clsPerson  {
         static clsUser _ConvertLineToUserObject(string line) {
             vector<string> vUsersData = clsString::SplitString(line, SEPARATOR);
             return clsUser(enMode::UpdateMode, vUsersData[0], vUsersData[1], vUsersData[2],
-                vUsersData[3], vUsersData[4], vUsersData[5], stoi(vUsersData[6]));
+                vUsersData[3], vUsersData[4], clsUtility::DecryptText(vUsersData[5]), stoi(vUsersData[6]));
         }
 
 
@@ -39,7 +39,7 @@ class clsUser : public clsPerson  {
             DataLine += User.Email() + SEPARATOR;
             DataLine += User.Phone() + SEPARATOR;
             DataLine += User._UserName + SEPARATOR;
-            DataLine += User._Password + SEPARATOR;
+            DataLine += clsUtility::EncryptText(User._Password) + SEPARATOR;
             DataLine += to_string(User._Permissions);
             return DataLine;
         }
@@ -111,7 +111,7 @@ class clsUser : public clsPerson  {
                 string LoginRecord = "";
                 LoginRecord += clsDate::GetSystemDateTimeString() + SEPARATOR;
                 LoginRecord += _UserName + SEPARATOR;
-                LoginRecord += _Password + SEPARATOR;
+                LoginRecord += clsUtility::EncryptText(_Password) + SEPARATOR;
                 LoginRecord += to_string(_Permissions);
                 return LoginRecord;
         }
@@ -264,7 +264,7 @@ class clsUser : public clsPerson  {
         void RegisterLogin() {
             string stDateLine = _PrepareLogInRecord();
             fstream MyFile;
-            MyFile.open("LoginRegister.txt", ios::out | ios::app);
+            MyFile.open(LoginRegisterFile, ios::out | ios::app);
             if(MyFile.is_open()) {
                 MyFile << stDateLine << endl;
                 MyFile.close();
@@ -284,7 +284,7 @@ class clsUser : public clsPerson  {
             UserLoginData loginData;
             loginData.DateTime = vUsersData[0];
             loginData.UserName = vUsersData[1];
-            loginData.Password = vUsersData[2];
+            loginData.Password = clsUtility::DecryptText(vUsersData[2]);
             loginData.Permissions = stoi(vUsersData[3]);
             return loginData;
         }
@@ -292,7 +292,7 @@ class clsUser : public clsPerson  {
         static vector<UserLoginData> _LoadUsersLoginDataFromFile() {
             vector<UserLoginData> _vUsers;
             fstream MyFile;
-            MyFile.open(, ios::in);
+            MyFile.open(LoginRegisterFile, ios::in);
             if(MyFile.is_open()) {
                 string Line; 
                 while (getline(MyFile, Line)) {
