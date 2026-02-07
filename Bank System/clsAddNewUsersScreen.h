@@ -65,6 +65,8 @@ class clsAddNewUsersScreen : protected clsScreen {
                 Permissions |= clsUser::UserAccess::ManageUsers;
             if (AskYesNo("Show Login Register?") == 'y') 
                 Permissions |= clsUser::UserAccess::LoginRegister;
+            if (AskYesNo("Show Currency?") == 'y') 
+                Permissions |= clsUser::UserAccess::Currency;
             
             return Permissions;
         }

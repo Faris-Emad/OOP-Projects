@@ -243,7 +243,8 @@ class clsUser : public clsPerson  {
             FindClient = 16,       // Find client
             Transactions = 32,     // Perform financial transactions
             ManageUsers = 64 ,      // Manage users
-            LoginRegister = 128
+            LoginRegister = 128,
+            Currency = 256
         };
         bool CheckAccessPermission(UserAccess Permissions) {
             if(this->_Permissions == UserAccess::FullAccess)

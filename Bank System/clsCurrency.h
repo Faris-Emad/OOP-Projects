@@ -25,7 +25,8 @@ class clsCurrency {
         string _CurrencyName;
         float  _Rate;
         static clsCurrency _ConvertLineToCurrencyObject(string line) {
-
+            vector <string> vCurrencyData = clsString::SplitString(line, SEPARATOR);
+            return clsCurrency(enMode::UpdateMode, vCurrencyData[0], vCurrencyData[1], vCurrencyData[2], stof(vCurrencyData[3]));
         }
         static string _ConverCurrncyObjectToLine(clsCurrency Currency) {
             string DataLine = "";
