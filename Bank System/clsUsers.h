@@ -59,13 +59,6 @@ class clsUser : public clsPerson  {
             }
             return _vUsers;
         }
-
-        static void EncryptFile() {
-            
-        }
-
-
-
         static void _SaveUsersDataToFile(vector<clsUser> _vUsers) {
             fstream MyFile;
             MyFile.open(UserFile, ios::out); // Open file for writing (overwrites existing)

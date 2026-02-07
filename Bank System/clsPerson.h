@@ -78,5 +78,14 @@ class clsPerson : public InterfaceCommunication {
             cout << "Phone: " << _Phone << endl;
             cout << "\nMessage: " << Message << endl; 
         }
+        void SendFax(string Title, string Body) override {
+            // Implementation or leave empty if not needed
+            cout << "Fax sent to " << FirstName() << " " << LastName() << endl;
+        }
+        
+        void SendSMS(string Title, string Body) override {
+            // Implementation or leave empty if not needed
+            cout << "SMS sent to " << Phone() << endl;
+        }
     
 };
