@@ -9,6 +9,9 @@ class clsInputValidate {
         static bool IsNumberBetween(int number, int from, int to) {
             return number >= from && number <= to;
         }
+        static bool IsNumberBetween(short number, short from, short to) {
+            return number >= from && number <= to;
+        }
         static bool IsNumberBetween(float number, float from, float to) {
             return number >= from && number <= to;
         }
@@ -43,6 +46,26 @@ class clsInputValidate {
 
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 return UserNumber;
+            }
+        }
+        static short ReadShortNumber(string messageError = "Invalid input! Please enter a valid number: ") {
+            short UserNumber = 0;
+            while (true) {
+            cin >> UserNumber;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\n" << messageError;
+                continue;
+            }
+            if (UserNumber < 0) {
+                cout << "\nInvalid input! Please enter a positive number: ";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return UserNumber;
             }
         }
         

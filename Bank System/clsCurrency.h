@@ -1,4 +1,4 @@
-#pragma onec
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -16,7 +16,7 @@ using namespace std;
 
 class clsCurrency {
     private:
-        inline  static const string CurrncyFile = "Currency.txt";
+        inline  static const string CurrncyFile = "exchange_rates_updated_feb2026.txt";
         inline  static const string SEPARATOR = "#//#";
         enum enMode { EmptyMode = 0, UpdateMode = 1};
         enMode _Mode;

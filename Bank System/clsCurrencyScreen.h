@@ -3,6 +3,8 @@
 #include "clsScreen.h"
 #include <iomanip>
 #include "clsCurrency.h"
+#include "clsCurrencyListScreen.h"
+#include "clsFindCurrency.h"
 using namespace std;
 
 
@@ -23,10 +25,10 @@ class clsCurrencyScreen : protected clsScreen  {
             ShowCurrencyScreen();
         }
         static void _ShowCurrencyListScreen() {
-            cout  << "soon" << endl;
+           clsCurrencyListScreen::ShowCurrencyListScreen();
         }
         static void _ShowFindCurrencyScreen() {
-            cout  << "soon" << endl;
+            clsFindCurrency::ShowFindCurrencyScreen();
         }
         static void _ShowUpdateRateScreen() {
             cout  << "soon" << endl;
