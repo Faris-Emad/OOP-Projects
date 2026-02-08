@@ -41,14 +41,14 @@ class clsFindCurrency : protected clsScreen {
             return Country;
         }
 
-        static void ChooseCurrencyByCode() {
+        static void _ChooseCurrencyByCode() {
             string CurrencyCode;
             cout << "\nPlease Enter Currency Code: ";
             CurrencyCode = clsInputValidate::ReadString();
             clsCurrency Currency = clsCurrency::FindByCode(FormatCurrencyCode(CurrencyCode));
             _ShowResults(Currency);
         }
-        static void ChooseCurrencyByCountry() {
+        static void _ChooseCurrencyByCountry() {
             string Country;
             cout << "\nPlease Enter Country Name: ";
             Country = clsInputValidate::ReadLine();
@@ -65,10 +65,10 @@ class clsFindCurrency : protected clsScreen {
             cout << "Find By: " << "[1] Code or [2] Country ?";
             short choose =  clsInputValidate::ReadShortNumber();
             if(choose == enFindBy::ByCode) {
-                ChooseCurrencyByCode();
+                _ChooseCurrencyByCode();
             }
             else if(choose == enFindBy::ByCountry) {
-                ChooseCurrencyByCountry();
+                _ChooseCurrencyByCountry();
             }
             else {
                 cout << "Invalid Choice!!!" << endl;

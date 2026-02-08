@@ -90,6 +90,26 @@ class clsInputValidate {
                 return UserNumber;
             }
         }
+        static float ReadFloatNumber(string messageError = "Error") {
+            float UserNumber = 0;
+            while (true) {
+            cin >> UserNumber;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << messageError;
+                continue;
+            }
+            if (UserNumber < 0) {
+                cout << "Invalid input! Please enter a positive number.\n";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return UserNumber;
+            }
+        }
         static string ReadString(string message) {
             string UserString = "";
             while(true){

@@ -58,7 +58,7 @@ Dominica#//#XCD#//#E.C. Dollar#//#2.700000
 Dominican Republic#//#DOP#//#Dominican Peso#//#55.000000
 East Timor#//#USD#//#US Dollar#//#1.000000
 Ecuador#//#USD#//#US Dollar#//#1.000000
-Egypt#//#EGP#//#Egyptian Pound#//#50.000000
+Egypt#//#EGP#//#Egyptian Pound#//#47.008301
 El Salvador#//#USD#//#US Dollar#//#1.000000
 Equatorial Guinea#//#XAF#//#CFA Franc#//#620.000000
 Eritrea#//#ERN#//#Eritrea Nakfa#//#15.000000
@@ -86,7 +86,7 @@ Guinea#//#GNF#//#Guinean Franc#//#8600.000000
 Guinea-Bissau#//#XOF#//#CFA Franc#//#620.000000
 Guyana#//#GYD#//#Guyana Dollar#//#210.000000
 Haiti#//#HTG#//#Haiti Gourde#//#143.000000
-Honduras#//#HNL#//#Honduras Lempira#//#24.700000
+Honduras#//#HNL#//#Honduras Lempira#//#24.700001
 Hong Kong#//#HKD#//#HongKong Dollar#//#7.813000
 Hungary#//#HUF#//#Hungary Forint#//#377.000000
 Iceland#//#ISK#//#Iceland Krona#//#143.000000
@@ -127,7 +127,7 @@ Marshall Islands#//#USD#//#US Dollar#//#1.000000
 Martinique#//#EUR#//#Euro#//#0.846000
 Mauritania#//#MRU#//#Mauritania Ouguiya#//#38.000000
 Mauritius#//#MUR#//#Mauritius Rupee#//#44.000000
-Mexico#//#MXN#//#Mexican Peso#//#17.249000
+Mexico#//#MXN#//#Mexican Peso#//#17.249001
 Micronesia#//#USD#//#US Dollar#//#1.000000
 "Moldova, Republic of"#//#MDL#//#Moldovan Leu#//#19.500000
 Monaco#//#EUR#//#Euro#//#0.846000
@@ -144,7 +144,7 @@ Netherlands#//#EUR#//#Euro#//#0.846000
 Netherlands Antilles#//#ANG#//#Netherlands Antilles Guilder#//#1.790000
 New Caledonia#//#XPF#//#CFP Franc#//#113.000000
 New Zealand#//#NZD#//#New Zealand Dollar#//#1.550000
-Nicaragua#//#NIO#//#Nicaragua Cordoba Oro#//#36.300000
+Nicaragua#//#NIO#//#Nicaragua Cordoba Oro#//#36.299999
 Niger#//#XOF#//#CFA Franc#//#620.000000
 Nigeria#//#NGN#//#Nigeria Naira#//#450.000000
 Niue#//#NZD#//#New Zealand Dollar#//#1.550000
@@ -158,7 +158,7 @@ Panama#//#PAB#//#Panama Balboa#//#1.000000
 Papua New Guinea#//#PGK#//#Kina#//#3.550000
 Paraguay#//#PYG#//#Paraguay Guarani#//#7220.000000
 Peru#//#PEN#//#Sol#//#3.860000
-Philippines#//#PHP#//#Philippine Peso#//#58.554000
+Philippines#//#PHP#//#Philippine Peso#//#58.554001
 Poland#//#PLN#//#Poland Zloty#//#4.450000
 Portugal#//#EUR#//#Euro#//#0.846000
 Puerto Rico#//#USD#//#US Dollar#//#1.000000
@@ -195,21 +195,21 @@ Switzerland#//#CHF#//#Swiss Franc#//#0.779000
 Syrian Arab Republic#//#SYP#//#Syrian Pound#//#13000.000000
 Tajikistan#//#TJS#//#Tajikistan Somoni#//#10.350000
 "Tanzania, United Rep. of"#//#TZS#//#Tanzania Shilling#//#2350.000000
-Thailand#//#THB#//#Thai Baht#//#31.470000
+Thailand#//#THB#//#Thai Baht#//#31.469999
 Togo#//#XOF#//#CFA Franc#//#620.000000
 Tokelau Islands#//#NZD#//#New Zealand Dollar#//#1.550000
 Tonga#//#TOP#//#Tonga Pa'anga#//#2.370000
 Trinidad and Tobago#//#TTD#//#Trinidad and Tobago Dollar#//#6.800000
 Tunisia#//#TND#//#Tunisian Dinar#//#3.170000
-Turkey#//#TRY#//#Turkish Lira#//#35.200000
+Turkey#//#TRY#//#Turkish Lira#//#35.200001
 Turkmenistan#//#TMT#//#Turkmenistan Manat#//#3.500000
 Turks and Caicos Island#//#USD#//#US Dollar#//#1.000000
 Tuvalu#//#AUD#//#Australian Dollar#//#1.425000
 Uganda#//#UGX#//#Uganda Shilling#//#3720.000000
-Ukraine#//#UAH#//#Ukraine Hryvnia#//#42.810000
+Ukraine#//#UAH#//#Ukraine Hryvnia#//#42.810001
 United Arab Emirates#//#AED#//#United Arab Emirates Dirham#//#3.673000
 United Kingdom#//#GBP#//#U.K. Pound#//#0.735000
-Uruguay#//#UYU#//#Uruguay Peso#//#38.900000
+Uruguay#//#UYU#//#Uruguay Peso#//#38.900002
 Uzbekistan#//#UZS#//#Uzbekistan Sum#//#11350.000000
 Vanuatu#//#VUV#//#Vanuatu Vatu#//#116.000000
 Venezuela#//#VES#//#Bolivar Digital#//#13.700000

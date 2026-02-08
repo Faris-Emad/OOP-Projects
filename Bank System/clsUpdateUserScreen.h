@@ -8,7 +8,7 @@ using namespace std;
 
 class clsUpdateUserScreen : protected clsScreen {
     private:
-static char AskYesNo(string question) {
+        static char AskYesNo(string question) {
             char answer;
             cout << question << " y/n: ";
             cin >> answer;

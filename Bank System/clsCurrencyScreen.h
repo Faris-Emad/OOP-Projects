@@ -5,6 +5,7 @@
 #include "clsCurrency.h"
 #include "clsCurrencyListScreen.h"
 #include "clsFindCurrency.h"
+#include "clsUpdateCurrencyRate.h"
 using namespace std;
 
 
@@ -31,7 +32,7 @@ class clsCurrencyScreen : protected clsScreen  {
             clsFindCurrency::ShowFindCurrencyScreen();
         }
         static void _ShowUpdateRateScreen() {
-            cout  << "soon" << endl;
+            clsUpdateCurrencyRate::ShowUpdateCurrencyRate();
         }
         static void _ShowCurrencyCalcScreen() {
             cout  << "soon" << endl;
