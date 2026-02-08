@@ -148,7 +148,7 @@ class clsCurrency {
         }
 
         
-        float ConvertToOtherCurrency(float Amount, clsCurrency OtherCurrency) {
+        float ConvertToOtherCurrency(float Amount, clsCurrency& OtherCurrency) {
             float AmountInUSD = ConvertToUSD(Amount);
             if(OtherCurrency.CurrencyCode() == "USD") {
                 return AmountInUSD;
