@@ -147,10 +147,13 @@ class clsCurrency {
             return AmountInUSD;
         }
 
+        
         float ConvertToOtherCurrency(float Amount, clsCurrency OtherCurrency) {
             float AmountInUSD = ConvertToUSD(Amount);
-            float AmountInOtherCurrency = AmountInUSD * OtherCurrency.Rate();
-            return AmountInOtherCurrency;
+            if(OtherCurrency.CurrencyCode() == "USD") {
+                return AmountInUSD;
+            }
+            return (AmountInUSD) * OtherCurrency.Rate();
         }
 
 };
