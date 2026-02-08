@@ -58,6 +58,7 @@ class clsString {
         void readFirstLetterOfEachWord() {
             readFirstLetterOfEachWord(_Value);
         }
+        
         static string UppercaseFirstLetterOfEachWord(string S1) {
             bool IsFirstLetter = true;
             for (int i = 0; i < S1.length(); i++) {
@@ -176,10 +177,18 @@ class clsString {
         void PrintEachWord() {
             PrintEachWord(_Value);
         }
+        // static string TrimLeft(string S1) {
+        //     for (int i = 0; i <= S1.length() - 1; i++) {
+        //         if (S1[i] != ' ') {
+        //             return S1 = S1.substr(i, S1.length());
+        //         }
+        //     }
+        //     return "";
+        // }
         static string TrimLeft(string S1) {
-            for (int i = 0; i <= S1.length() - 1; i++) {
+            for (int i = 0; i < S1.length(); i++) {
                 if (S1[i] != ' ') {
-                    return S1 = S1.substr(i, S1.length() - 1);
+                    return S1.substr(i);
                 }
             }
             return "";
@@ -273,11 +282,27 @@ class clsString {
             return UpdatedString;
         }
 
+        // static string ToLowerCase(string S5) {
+        //     for (int i = 0; i <= S5.length(); i++) {
+        //         S5[i] = tolower(S5[i]);
+        //     }
+        //     return S5;
+        //}
         static string ToLowerCase(string S5) {
-            for (int i = 0; i <= S5.length() - 1; i++) {
-                S5[i] = tolower(S5[i]);
+            for (int i = 0; i < S5.length(); i++) {  // ✅
+                if (S5[i] >= 'A' && S5[i] <= 'Z') {
+                    S5[i] += 32;
+                }
             }
             return S5;
+        }
+        static string ToUpperCase(string text) {
+            for(int i = 0; i < text.length(); i++) {
+                if(text[i] >= 'a' && text[i] <= 'z') {
+                    text[i] = text[i] - 32;
+                }
+            }
+            return text;
         }
         static string RemoveTrailingPunctuation(string S4) {
             if (S4.empty()) {

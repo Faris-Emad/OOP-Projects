@@ -119,6 +119,29 @@ class clsInputValidate {
                 return UserString;
             }
         }
+        static string ReadLine() {
+           string UserString = "";
+            
+            while(true) {
+                // Read entire line, ws handles leftover whitespace automatically
+                getline(cin >> ws, UserString);
+                
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid String, Enter again:\n";
+                    continue;
+                }
+                
+                // Optional: validate non-empty
+                if (UserString.empty()) {
+                    cout << "String cannot be empty, Enter again:\n";
+                    continue;
+                }
+                
+                return UserString;
+            }
+        }
         static char ReadChar() {
             char UserChar;
             while(true){

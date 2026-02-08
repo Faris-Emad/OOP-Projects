@@ -129,7 +129,7 @@ class clsCurrency {
                 string Line;
                 while (getline(MyFile, Line)) {
                     clsCurrency Currency = _ConvertLineToCurrencyObject(Line);
-                    if(Currency.CurrencyName() == CurrencyName) {
+                    if(Currency.Country()== CurrencyName) {
                         MyFile.close();
                         return Currency;
                     }
@@ -138,6 +138,8 @@ class clsCurrency {
             }
             return _GetEmptyCurrencyObject();
         }
+       
+
         static bool IsCurrencyExist(string CurrencyCode) {
             clsCurrency Currency = clsCurrency::FindByCode(CurrencyCode);
             return(!Currency.IsEmpty());
