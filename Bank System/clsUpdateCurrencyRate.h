@@ -15,7 +15,7 @@ class clsUpdateCurrencyRate : protected clsScreen  {
             cout << "\nCountry    : " << Currency.Country();
             cout << "\nCode       : " << Currency.CurrencyCode();
             cout << "\nName       : " << Currency.CurrencyName();
-            cout << "\nRate       : " << Currency.Rate();
+            cout << "\nRate(1$)   : " << Currency.Rate();
             cout << "\n------------------------------------\n";
         }
         static void _ShowResults(clsCurrency Currency) {
@@ -48,7 +48,13 @@ class clsUpdateCurrencyRate : protected clsScreen  {
             string CurrencyCode;
             cout << "\nPlease Enter Currency Code: ";
             CurrencyCode = clsInputValidate::ReadString();
-            clsCurrency Currency = clsCurrency::FindByCode(_FormatCurrencyCode(CurrencyCode));
+            CurrencyCode = _FormatCurrencyCode(CurrencyCode);
+            while (!clsCurrency::IsCurrencyExist(CurrencyCode)) {
+                cout << "\nCurrency is not found, choose another one: ";
+                CurrencyCode = clsInputValidate::ReadString();
+                CurrencyCode = _FormatCurrencyCode(CurrencyCode);
+            }
+            clsCurrency Currency = clsCurrency::FindByCode(CurrencyCode);
             _ShowResults(Currency);
             if(Currency.IsEmpty())
                 return;

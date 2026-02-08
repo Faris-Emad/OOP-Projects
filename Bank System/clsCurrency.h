@@ -6,12 +6,6 @@
 #include "clsString.h"
 using namespace std;
 
-// what i will do for this object ?? 
-/*
-    1 - update the rate  
-    2 - find the currency code and name 
-
-*/
 
 
 class clsCurrency {
@@ -148,6 +142,16 @@ class clsCurrency {
             return _LoadCurrencyDataFromFile();
         }
 
+        float ConvertToUSD(float Amount) {
+            float AmountInUSD = Amount / _Rate;
+            return AmountInUSD;
+        }
+
+        float ConvertToOtherCurrency(float Amount, clsCurrency OtherCurrency) {
+            float AmountInUSD = ConvertToUSD(Amount);
+            float AmountInOtherCurrency = AmountInUSD * OtherCurrency.Rate();
+            return AmountInOtherCurrency;
+        }
 
 };
 
